@@ -22,7 +22,7 @@ class Form extends Component{
             //STILL NEED TO ADD KEYS??
             <form action=''>
                 <select onChange={this.getFormInfo} value={this.state.userChoice} name='whichCity' id='whichCity'>
-                    <option value=''>Choose A City</option>
+                    {/* <option value=''>Choose A City</option> */}
                     <option value="4118" >Toronto</option>
                     <option value="565346" >Helsinki</option>
                 </select>
