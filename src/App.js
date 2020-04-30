@@ -3,10 +3,30 @@ import './App.css';
 import axios from 'axios'
 import * as Tone from "tone";
 import Form from './Form'
-const notes = [
+// const notes = [
+//   'C4', 'Eb4', 'Gb2',
+//   'C4', 'E3', 'A3',
+//   'D2', 'A1', 'Gb3',
+// ];
+const newObject = {
+  0:'C4',
+  1:'D4'
+}
+
+const arrayOne = [
   'C4', 'Eb4', 'Gb2',
   'C4', 'E3', 'A3',
   'D2', 'A1', 'Gb3',
+];
+const arrayTwo = [
+  'Bb3', 'G3', 'Eb3',
+  'D3', 'Bb2', 'G2',
+  'Eb2', 'D2', 'Bb1',
+];
+const arrayThree = [
+  'E4', 'Eb4', 'F4',
+  'C4', 'E4', 'A4',
+  'D4', 'A4', 'Gb4',
 ];
 // Givine my citySelect a default value (Toronto)
 class App extends Component {
@@ -57,16 +77,16 @@ class App extends Component {
       // console.log(weatherData.wind_speed);
       Tone.Transport.stop();
       this.setState({
-        windSpeed: weatherData.wind_speed
+        windSpeed: weatherData.wind_speed,
+        weatherStatis: weatherData.weather_state_abbr
       });
-      // console.log(this.state.windSpeed);
     })
   }
   handleChange = (event, metropolis) => {
     event.preventDefault();
     console.log('hello?');
     // console.log(metropolis);
-    //update the citySelect in state and make new axios call..correct?
+    //update the citySelect in state and make new axios call
     this.setState({
       citySelect: metropolis
     }, () => this.getWeather())
@@ -74,8 +94,18 @@ class App extends Component {
   }
   repeat = (time, index) => {
     console.log('repeat????', index);
-    let note = notes[index % notes.length];
+    // let note = notes[index % notes.length];
+    //Conditonal statement to assign array(song) depending on weatherStatis
+    let note
+      if (this.state.weatherStatis === 'hr') {
+      note = arrayThree[index % arrayThree.length];
+    } if (this.state.weatherStatis === 'h') {
+      note = arrayTwo[index % arrayTwo.length]
+    } if (this.state.weatherStatis === 'lc') {
+      note = arrayOne[index % arrayOne.length]
+    }
     this.synth.triggerAttackRelease(note, '8n', time)
+    console.log(this.state.weatherStatis);
   }
   scheduleRepeat = () => {
     let index = 0;
@@ -98,6 +128,7 @@ class App extends Component {
     vol.connect(gain)
     gain.toMaster();
 
+    //wind speed is setting the BPM (*10 to make sure its not too slow)
     Tone.Transport.bpm.value = (this.state.windSpeed) * 10
     Tone.Transport.start(); 
     //Not sure why this.synth.triggerAttackRelease() is called a second time?
