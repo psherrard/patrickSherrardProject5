@@ -4,8 +4,7 @@ import axios from 'axios'
 import * as Tone from "tone";
 import Form from './Form'
 
-//Helsinki code: 565346
-
+// Givine my citySelect a default value (Toronto)
 class App extends Component {
   constructor() {
     super();
@@ -53,16 +52,24 @@ class App extends Component {
 
 
 
-    //update the citySelect in state
+    //update the citySelect in state and make new axios call..correct?
     this.setState({
       citySelect: metropolis
     }, () => this.getWeather())
     // console.log(this.state.citySelect);
   }
+
+  startTone = () =>{
+    Tone.Transport.start();
+  }
+  
+  stopTone = () => {
+    Tone.Transport.stop();
+  }
   
   render(){
-    console.log(this.state.citySelect);
-    console.log(this.state.windSpeed);
+    // console.log(this.state.citySelect);
+    // console.log(this.state.windSpeed);
 
 
     // Can I store synth in Function Component??
@@ -71,23 +78,54 @@ class App extends Component {
         "type": "sine"
       },
       "envelope": {
-        "attack": 0.5,
+        "attack": 0.001,
         "decay": 0.5,
-        "sustain": 10,
-        "release": 50
+        "sustain": 0.5,
+        "release": 5
       }
     })
-    synth.triggerAttackRelease("C3", "8n");
-    const freeverb = new Tone.Freeverb()
-    freeverb.dampening.value = 650;
+    // synth.triggerAttackRelease("C3", "8n");
     // console.log(synth.envelope.release);
-    const gain = new Tone.Gain(0.0);
+    const gain = new Tone.Gain(0.1);
     //route to master
-    synth.connect(freeverb)
-    freeverb.connect(gain)
+    synth.connect(gain)
     gain.toMaster();
 
-    
+    const notes = [
+      'C4', 'Eb4', 'Gb2',
+      'C4', 'E3', 'A3',
+      'D2', 'A1', 'Gb3',
+    ];
+
+    let index = 0;
+
+    //repeated event every 8th note
+    Tone.Transport.scheduleRepeat(time => {
+      //do something with the time
+      repeat(time);
+    }, '8n');
+
+    Tone.Transport.bpm.value = (this.state.windSpeed) * 10
+    console.log(Tone.Transport.bpm.value);
+
+    function repeat(time) {
+      let note = notes[index % notes.length];
+      // console.log(note);
+      synth.triggerAttackRelease(note, '8n', time)
+      index++;
+    }
+
+    // Tone.Transport.start();
+
+    // setTimeout(() => {
+    //   Tone.Transport.stop();
+    // }, 9000)
+
+
+
+
+
+
     return (
       <div className="App">
         <h1>Weather Synth App</h1>
@@ -95,8 +133,8 @@ class App extends Component {
           <Form handleChange={this.handleChange} />
 
         <div>
-          <button id="startSong">Start</button>
-          <button id="stopSong">Stop</button>
+          <button onClick={this.startTone} id="startSong">Start</button>
+          <button onClick={this.stopTone} id="stopSong">Stop</button>
         </div>
       </div>
     );

@@ -19,6 +19,7 @@ class Form extends Component{
 
     render(){
         return(
+            //STILL NEED TO ADD KEYS??
             <form action=''>
                 <select onChange={this.getFormInfo} value={this.state.userChoice} name='whichCity' id='whichCity'>
                     <option value=''>Choose A City</option>
