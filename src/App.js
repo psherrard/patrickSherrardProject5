@@ -3,52 +3,43 @@ import './App.css';
 import axios from 'axios'
 import * as Tone from "tone";
 import Form from './Form'
-// const notes = [
-//   'C4', 'Eb4', 'Gb2',
-//   'C4', 'E3', 'A3',
-//   'D2', 'A1', 'Gb3',
-// ];
+
+//Global object
 const newObject = {
-  0:'C4',
-  1:'D4'
+  0: 'C3',
+  1: 'D3',
+  2: 'E3',
+  3: 'F3',
+  4: 'G3',
+  5: 'A3',
+  6: 'B4',
+  7: 'C4',
+  8: 'D4',
+  9: 'E4'
 }
 
-const arrayOne = [
-  'C4', 'Eb4', 'Gb2',
-  'C4', 'E3', 'A3',
-  'D2', 'A1', 'Gb3',
-];
-const arrayTwo = [
-  'Bb3', 'G3', 'Eb3',
-  'D3', 'Bb2', 'G2',
-  'Eb2', 'D2', 'Bb1',
-];
-const arrayThree = [
-  'E4', 'Eb4', 'F4',
-  'C4', 'E4', 'A4',
-  'D4', 'A4', 'Gb4',
-];
-// Givine my citySelect a default value (Toronto)
 class App extends Component {
   constructor() {
     super();
     this.synth =
-      new Tone.Synth({
-        "oscillator": {
-          "type": "sine"
-        },
-        "envelope": {
-          "attack": 0.001,
-          "decay": 0.5,
-          "sustain": 0.5,
-          "release": 0.5
-        }
-      })
-
+    new Tone.Synth({
+      "oscillator": {
+        "type": "sine"
+      },
+      "envelope": {
+        "attack": 0.001,
+        "decay": 0.05,
+        "sustain": 0.5,
+        "release": 0.5
+      }
+    })
+    
+    // citySelect a default value (Toronto)
     this.state = {
       citySelect: '4118',
+      weatherStatis:'',
       windSpeed: 0,
-      weatherStatis:''
+      windDirection:0
       //ANY OTHER WEATHER PARAMETERS AND CHANGE WITH this.setState
     }
     // console.log(this.state.citySelect);
@@ -78,7 +69,8 @@ class App extends Component {
       Tone.Transport.stop();
       this.setState({
         windSpeed: weatherData.wind_speed,
-        weatherStatis: weatherData.weather_state_abbr
+        weatherStatis: weatherData.weather_state_abbr,
+        windDirection: weatherData.visibility
       });
     })
   }
@@ -92,21 +84,35 @@ class App extends Component {
     }, () => this.getWeather())
     // console.log(this.state.citySelect);
   }
+
+
   repeat = (time, index) => {
     console.log('repeat????', index);
     // let note = notes[index % notes.length];
-    //Conditonal statement to assign array(song) depending on weatherStatis
-    let note
-      if (this.state.weatherStatis === 'hr') {
-      note = arrayThree[index % arrayThree.length];
-    } if (this.state.weatherStatis === 'h') {
-      note = arrayTwo[index % arrayTwo.length]
-    } if (this.state.weatherStatis === 'lc') {
-      note = arrayOne[index % arrayOne.length]
-    }
+    const windD = this.state.windDirection * 100000000000
+    console.log(windD);
+    const newVis = Math.round(windD)
+    const numString = newVis.toString();
+    const numNotes = [...numString]
+    const newArray = numNotes.map((newNumber) => {
+      return newObject[newNumber]
+    });
+    // console.log(newArray);
+
+    const arrayOne = newArray
+    console.log(arrayOne);
+    let note = newArray[index % newArray.length];
+
+
+
+  
+
+
     this.synth.triggerAttackRelease(note, '8n', time)
     console.log(this.state.weatherStatis);
   }
+
+
   scheduleRepeat = () => {
     let index = 0;
     console.log(index, 'index?');
@@ -117,19 +123,31 @@ class App extends Component {
     }, '8n');
   }
 
+
+
   startTone = () => {
+    this.synth.portamento = '0.01';
+    //All Synth add ons and FXs, then route to master output ------------------------------------------------------------
     const gain = new Tone.Gain(0.1);
-    const vol = new Tone.Volume({
-      'volume': 1,
-      'mute': false
-    });
-    //route to master
-    this.synth.connect(vol)
-    vol.connect(gain)
+    const reverb = new Tone.JCReverb (0.5);
+    const phaser = new Tone.Phaser({
+      "frequency": 0,
+      "octaves": 0,
+      "baseFrequency": 0
+    })
+    // const vol = new Tone.Volume({
+    //   'volume': 1,
+    //   'mute': false
+    // });
+    this.synth.connect(phaser)
+    phaser.connect(reverb)
+    reverb.connect(gain)
+    // vol.connect(gain)
     gain.toMaster();
 
-    //wind speed is setting the BPM (*10 to make sure its not too slow)
-    Tone.Transport.bpm.value = (this.state.windSpeed) * 10
+    //wind speed is setting the BPM (*8 to make sure its not too slow)
+    Tone.Transport.bpm.value = (this.state.windSpeed) * 8
+    // console.log(Tone.Transport.bpm.value);
     Tone.Transport.start(); 
     //Not sure why this.synth.triggerAttackRelease() is called a second time?
     this.synth.triggerAttackRelease();
@@ -141,6 +159,7 @@ class App extends Component {
   }
 
   render() {
+    // console.log(this.state.windDirection);
     return (
       <div className="App">
         <h1>Weather Synth App</h1>
