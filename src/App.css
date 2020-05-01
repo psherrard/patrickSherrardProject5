@@ -2,3 +2,36 @@
   text-align: center;
 }
 
+body{
+  background: rgb(0,0,0);
+  background: linear-gradient(90deg, rgba(0,0,0,1) 50%, rgba(255,255,255,1) 50%);
+}
+
+h1,footer {
+  color:white;
+}
+
+h1 span {
+  margin-left:15px;
+  padding-left:50px;
+  color:black;
+}
+
+footer p span {
+  color:black;
+}
+
+footer {
+  margin-top:320px;
+  position: sticky;
+}
+
+.startStop button {
+  margin-top: 100px;
+  margin-right:50px;
+  margin-left:50px;
+}
+
+.loading {
+  color:rgb(128, 128, 128)
+}

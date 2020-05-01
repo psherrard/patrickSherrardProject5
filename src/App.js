@@ -5,7 +5,20 @@ import * as Tone from "tone";
 import Form from './Form'
 
 //Global object
-const newObject = {
+// const newObject = {
+//   0: 'C3',
+//   1: 'D3',
+//   2: 'E3',
+//   3: 'F3',
+//   4: 'G3',
+//   5: 'A3',
+//   6: 'B3',
+//   7: 'G2',
+//   8: 'B2',
+//   9: 'A2'
+// }
+
+const scaleOne = {
   0: 'C3',
   1: 'D3',
   2: 'E3',
@@ -16,6 +29,19 @@ const newObject = {
   7: 'G2',
   8: 'B2',
   9: 'A2'
+}
+
+const scaleTwo = {
+  0: 'C3',
+  1: 'Eb3',
+  2: 'F3',
+  3: 'Gb3',
+  4: 'G3',
+  5: 'Bb3',
+  6: 'C4',
+  7: 'Gb2',
+  8: 'Bb2',
+  9: 'Eb2'
 }
 
 class App extends Component {
@@ -36,7 +62,7 @@ class App extends Component {
     
     // citySelect a default value (Toronto)
     this.state = {
-      citySelect: '4118',
+      citySelect: '',
       weatherStatis:'',
       windSpeed: 0,
       windDirection:0,
@@ -106,6 +132,9 @@ class App extends Component {
     const numString = newVis.toString();
     const numNotes = [...numString]
     const newArray = numNotes.map((newNumber) => {
+      // if (this.state.x === x){
+      //   return
+      // }
       return newObject[newNumber]
     });
     // console.log(newArray);
@@ -137,7 +166,7 @@ class App extends Component {
 
   startTone = () => {
     // Reverb equation
-    const reverbTime = this.state.humidity / 100
+    const reverbTime = (this.state.humidity / 100) - 0.25
     console.log(reverbTime);
 
 
@@ -148,10 +177,11 @@ class App extends Component {
     this.synth.volume.value = -12;
     // this.synth.portamento = '0.05';
     const reverb = new Tone.JCReverb (reverbTime);
+    console.log(Tone.JCReverb.value);
     const phaser = new Tone.Phaser({
-      "frequency": 120,
+      "frequency": 0,
       "octaves": 2,
-      "baseFrequency": 200
+      "baseFrequency": 0
     })
     this.synth.connect(phaser)
     phaser.connect(reverb)
@@ -177,22 +207,22 @@ class App extends Component {
     // console.log(this.state.windDirection);
     return (
       <div className="App">
-        <h1>Weather Synth App</h1>
+        <h1>Weather <span>Synth App</span> </h1>
 
 
         <Form handleChange={this.handleChange} />
         <section>
           {/* Checking it loading is T/F to display loading on axios call */}
           {this.state.loading
-          ? <p>loading...</p>
-          : <div>
+            ? <p className="loading"><i className="fas fa-spinner fa-pulse"></i></p>
+          : <div className="startStop">
               <button onClick={this.state.melody ? null : this.startTone} id="startSong">Start</button>
               <button onClick={this.stopTone} id="stopSong">Stop</button>
             </div>
           }
         </section>
         <footer>
-          <p>powered by Tone.js and MetaWeather</p>
+          <p>Made with Tone.js <span>and MetaWeather</span></p>
         </footer>
 
       </div>
