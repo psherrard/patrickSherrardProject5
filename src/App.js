@@ -41,7 +41,9 @@ class App extends Component {
       windSpeed: 0,
       windDirection:0,
       visibility:0,
-      loading:false
+      humidity:0,
+      loading:false,
+      melody: false
       //ANY OTHER WEATHER PARAMETERS AND CHANGE WITH this.setState
     }
     // console.log(this.state.citySelect);
@@ -73,6 +75,7 @@ class App extends Component {
           weatherStatis: weatherData.weather_state_abbr,
           windDirection: weatherData.wind_direction,
           visibility: weatherData.visibility,
+          humidity: weatherData.humidity,
           loading:false
         });
       })
@@ -93,10 +96,11 @@ class App extends Component {
 
 
   repeat = (time, index) => {
-    console.log('repeat????', index);
+    console.log('index #', index);
     // let note = notes[index % notes.length];
+    // Notes playing equation
     // I've taken wind direction and added visibility to diversify the note array, then times it to move the decimal
-    const windD = (this.state.windDirection + this.state.visibility) * 10000000000
+    const windD = (this.state.windDirection + this.state.visibility) * 100000000000
     // console.log(windD);
     const newVis = Math.round(windD)
     const numString = newVis.toString();
@@ -110,7 +114,7 @@ class App extends Component {
     console.log(arrayOne);
     let note = newArray[index % newArray.length];
     this.synth.triggerAttackRelease(note, '8n', time)
-    console.log(this.state.weatherStatis);
+    // console.log(this.state.weatherStatis);
   }
 
 
@@ -126,25 +130,32 @@ class App extends Component {
 
 
 
+
+
+
+
+
   startTone = () => {
-    this.synth.portamento = '0.01';
-    //All Synth add ons and FXs, then route to master output ------------------------------------------------------------
-    const gain = new Tone.Gain(0.1);
-    const reverb = new Tone.JCReverb (0.5);
-    const phaser = new Tone.Phaser({
-      "frequency": 0,
-      "octaves": 0,
-      "baseFrequency": 0
+    // Reverb equation
+    const reverbTime = this.state.humidity / 100
+    console.log(reverbTime);
+
+
+    this.setState({
+      melody:true
     })
-    // const vol = new Tone.Volume({
-    //   'volume': 1,
-    //   'mute': false
-    // });
+    //All Synth add ons and FXs, then route to master output ---------------------------------------------------------------------
+    this.synth.volume.value = -12;
+    // this.synth.portamento = '0.05';
+    const reverb = new Tone.JCReverb (reverbTime);
+    const phaser = new Tone.Phaser({
+      "frequency": 120,
+      "octaves": 2,
+      "baseFrequency": 200
+    })
     this.synth.connect(phaser)
     phaser.connect(reverb)
-    reverb.connect(gain)
-    // vol.connect(gain)
-    gain.toMaster();
+    reverb.toMaster();
 
     //wind speed is setting the BPM (*8 to make sure its not too slow)
     Tone.Transport.bpm.value = (this.state.windSpeed) * 8
@@ -157,6 +168,9 @@ class App extends Component {
 
   stopTone = () => {
     Tone.Transport.stop();
+    this.setState({
+      melody:false
+    })
   }
 
   render() {
@@ -165,18 +179,22 @@ class App extends Component {
       <div className="App">
         <h1>Weather Synth App</h1>
 
+
         <Form handleChange={this.handleChange} />
-        {this.state.loading
-        ? <p>loading...</p>
-        : <div>
-            <button onClick={this.startTone} id="startSong">Start</button>
-            <button onClick={this.stopTone} id="stopSong">Stop</button>
-          </div>
-        }
-        {/* <div>
-          <button onClick={this.startTone} id="startSong">Start</button>
-          <button onClick={this.stopTone} id="stopSong">Stop</button>
-        </div> */}
+        <section>
+          {/* Checking it loading is T/F to display loading on axios call */}
+          {this.state.loading
+          ? <p>loading...</p>
+          : <div>
+              <button onClick={this.state.melody ? null : this.startTone} id="startSong">Start</button>
+              <button onClick={this.stopTone} id="stopSong">Stop</button>
+            </div>
+          }
+        </section>
+        <footer>
+          <p>powered by Tone.js and MetaWeather</p>
+        </footer>
+
       </div>
     );
   }
