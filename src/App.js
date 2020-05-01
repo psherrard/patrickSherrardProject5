@@ -4,20 +4,7 @@ import axios from 'axios'
 import * as Tone from "tone";
 import Form from './Form'
 
-//Global object
-// const newObject = {
-//   0: 'C3',
-//   1: 'D3',
-//   2: 'E3',
-//   3: 'F3',
-//   4: 'G3',
-//   5: 'A3',
-//   6: 'B3',
-//   7: 'G2',
-//   8: 'B2',
-//   9: 'A2'
-// }
-
+// C Major
 const scaleOne = {
   0: 'C3',
   1: 'D3',
@@ -28,20 +15,21 @@ const scaleOne = {
   6: 'B3',
   7: 'G2',
   8: 'B2',
-  9: 'A2'
+  9: '0'
 }
 
+//C Dorian 
 const scaleTwo = {
   0: 'C3',
-  1: 'Eb3',
-  2: 'F3',
-  3: 'Gb3',
+  1: 'D3',
+  2: 'Eb3',
+  3: 'F3',
   4: 'G3',
-  5: 'Bb3',
-  6: 'C4',
-  7: 'Gb2',
+  5: 'A3',
+  6: 'Bb3',
+  7: 'G2',
   8: 'Bb2',
-  9: 'Eb2'
+  9: '0'
 }
 
 class App extends Component {
@@ -56,7 +44,7 @@ class App extends Component {
         "attack": 0.005,
         "decay": 0.1,
         "sustain": 0.3,
-        "release": 1
+        "release": 0.8
       }
     })
     
@@ -122,6 +110,7 @@ class App extends Component {
 
 
   repeat = (time, index) => {
+    // --------------------------------------------------------------------------------------------- L O G I C -----------------------
     console.log('index #', index);
     // let note = notes[index % notes.length];
     // Notes playing equation
@@ -132,10 +121,11 @@ class App extends Component {
     const numString = newVis.toString();
     const numNotes = [...numString]
     const newArray = numNotes.map((newNumber) => {
-      // if (this.state.x === x){
-      //   return
-      // }
-      return newObject[newNumber]
+      if (this.state.weatherStatis === 'hc'){
+        return scaleOne[newNumber]
+      } if (this.state.weatherStatis === 'lr' || 'c') {
+        return scaleTwo[newNumber]
+      }
     });
     // console.log(newArray);
 
@@ -166,15 +156,15 @@ class App extends Component {
 
   startTone = () => {
     // Reverb equation
-    const reverbTime = (this.state.humidity / 100) - 0.25
+    const reverbTime = (this.state.humidity / 100) - 0.15
     console.log(reverbTime);
 
 
     this.setState({
       melody:true
     })
-    //All Synth add ons and FXs, then route to master output ---------------------------------------------------------------------
-    this.synth.volume.value = -12;
+    //All Synth add ons and FXs, then route to master output ---------------------------------------- F X ----------------------------
+    this.synth.volume.value = -20;
     // this.synth.portamento = '0.05';
     const reverb = new Tone.JCReverb (reverbTime);
     console.log(Tone.JCReverb.value);
