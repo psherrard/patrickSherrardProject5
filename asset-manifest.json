@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/patrickSherrardProject5/static/css/main.d3aaa3ee.chunk.css",
+    "main.js": "/patrickSherrardProject5/static/js/main.489e1f3d.chunk.js",
+    "main.js.map": "/patrickSherrardProject5/static/js/main.489e1f3d.chunk.js.map",
+    "runtime-main.js": "/patrickSherrardProject5/static/js/runtime-main.d99057b9.js",
+    "runtime-main.js.map": "/patrickSherrardProject5/static/js/runtime-main.d99057b9.js.map",
+    "static/js/2.d3f7268b.chunk.js": "/patrickSherrardProject5/static/js/2.d3f7268b.chunk.js",
+    "static/js/2.d3f7268b.chunk.js.map": "/patrickSherrardProject5/static/js/2.d3f7268b.chunk.js.map",
+    "index.html": "/patrickSherrardProject5/index.html",
+    "precache-manifest.bab2000593f7c1270f7d97e996712a65.js": "/patrickSherrardProject5/precache-manifest.bab2000593f7c1270f7d97e996712a65.js",
+    "service-worker.js": "/patrickSherrardProject5/service-worker.js",
+    "static/css/main.d3aaa3ee.chunk.css.map": "/patrickSherrardProject5/static/css/main.d3aaa3ee.chunk.css.map",
+    "static/js/2.d3f7268b.chunk.js.LICENSE.txt": "/patrickSherrardProject5/static/js/2.d3f7268b.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d99057b9.js",
+    "static/js/2.d3f7268b.chunk.js",
+    "static/css/main.d3aaa3ee.chunk.css",
+    "static/js/main.489e1f3d.chunk.js"
+  ]
+}
