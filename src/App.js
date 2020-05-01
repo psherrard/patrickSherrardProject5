@@ -12,10 +12,10 @@ const newObject = {
   3: 'F3',
   4: 'G3',
   5: 'A3',
-  6: 'B4',
-  7: 'C4',
-  8: 'D4',
-  9: 'E4'
+  6: 'B3',
+  7: 'G2',
+  8: 'B2',
+  9: 'A2'
 }
 
 class App extends Component {
@@ -27,10 +27,10 @@ class App extends Component {
         "type": "sine"
       },
       "envelope": {
-        "attack": 0.001,
-        "decay": 0.05,
-        "sustain": 0.5,
-        "release": 0.5
+        "attack": 0.005,
+        "decay": 0.1,
+        "sustain": 0.3,
+        "release": 1
       }
     })
     
@@ -39,7 +39,9 @@ class App extends Component {
       citySelect: '4118',
       weatherStatis:'',
       windSpeed: 0,
-      windDirection:0
+      windDirection:0,
+      visibility:0,
+      loading:false
       //ANY OTHER WEATHER PARAMETERS AND CHANGE WITH this.setState
     }
     // console.log(this.state.citySelect);
@@ -52,28 +54,32 @@ class App extends Component {
   }
 
   getWeather = () => {
-    //last digits (4118) will need to be stored in a variable to select different cities
-    const url = `https://www.metaweather.com/api/location/${this.state.citySelect}`;
-    axios({
-      method: 'GET',
-      url: 'https://proxy.hackeryou.com',
-      params: {
-        reqUrl: url
-      }
-    }).then((result) => {
-      // get result from Axios call, navigate to the weather for the current day
-      const weatherData = result.data.consolidated_weather[0]
-      // const weatherData = result.data
-      // console.log(weatherData);
-      // console.log(weatherData.wind_speed);
-      Tone.Transport.stop();
-      this.setState({
-        windSpeed: weatherData.wind_speed,
-        weatherStatis: weatherData.weather_state_abbr,
-        windDirection: weatherData.visibility
-      });
+    this.setState({
+      loading:true
+    },() => {
+      const url = `https://www.metaweather.com/api/location/${this.state.citySelect}`;
+      axios({
+        method: 'GET',
+        url: 'https://proxy.hackeryou.com',
+        params: {
+          reqUrl: url
+        }
+      }).then((result) => {
+        // get result from Axios call, navigate to the weather for the current day
+        const weatherData = result.data.consolidated_weather[0]
+        Tone.Transport.stop();
+        this.setState({
+          windSpeed: weatherData.wind_speed,
+          weatherStatis: weatherData.weather_state_abbr,
+          windDirection: weatherData.wind_direction,
+          visibility: weatherData.visibility,
+          loading:false
+        });
+      })
     })
+    //last digits (4118) will need to be stored in a variable to select different cities
   }
+
   handleChange = (event, metropolis) => {
     event.preventDefault();
     console.log('hello?');
@@ -89,8 +95,9 @@ class App extends Component {
   repeat = (time, index) => {
     console.log('repeat????', index);
     // let note = notes[index % notes.length];
-    const windD = this.state.windDirection * 100000000000
-    console.log(windD);
+    // I've taken wind direction and added visibility to diversify the note array, then times it to move the decimal
+    const windD = (this.state.windDirection + this.state.visibility) * 10000000000
+    // console.log(windD);
     const newVis = Math.round(windD)
     const numString = newVis.toString();
     const numNotes = [...numString]
@@ -102,12 +109,6 @@ class App extends Component {
     const arrayOne = newArray
     console.log(arrayOne);
     let note = newArray[index % newArray.length];
-
-
-
-  
-
-
     this.synth.triggerAttackRelease(note, '8n', time)
     console.log(this.state.weatherStatis);
   }
@@ -165,10 +166,17 @@ class App extends Component {
         <h1>Weather Synth App</h1>
 
         <Form handleChange={this.handleChange} />
-        <div>
+        {this.state.loading
+        ? <p>loading...</p>
+        : <div>
+            <button onClick={this.startTone} id="startSong">Start</button>
+            <button onClick={this.stopTone} id="stopSong">Stop</button>
+          </div>
+        }
+        {/* <div>
           <button onClick={this.startTone} id="startSong">Start</button>
           <button onClick={this.stopTone} id="stopSong">Stop</button>
-        </div>
+        </div> */}
       </div>
     );
   }
