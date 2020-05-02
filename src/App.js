@@ -32,6 +32,19 @@ const scaleTwo = {
   9: '0'
 }
 
+const scaleThree = {
+  0: 'F3',
+  1: 'Eb3',
+  2: 'C3',
+  3: 'Gb2',
+  4: 'D3',
+  5: 'A3',
+  6: 'Bb2',
+  7: 'Gb2',
+  8: 'F1',
+  9: '0'
+}
+
 class App extends Component {
   constructor() {
     super();
@@ -57,7 +70,8 @@ class App extends Component {
       visibility:0,
       humidity:0,
       loading:false,
-      melody: false
+      melody: false,
+      description: true
       //ANY OTHER WEATHER PARAMETERS AND CHANGE WITH this.setState
     }
     // console.log(this.state.citySelect);
@@ -122,9 +136,11 @@ class App extends Component {
     const numNotes = [...numString]
     const newArray = numNotes.map((newNumber) => {
       if (this.state.weatherStatis === 'hc'){
-        return scaleOne[newNumber]
+        return scaleThree[newNumber]
       } if (this.state.weatherStatis === 'lr' || 'c') {
         return scaleTwo[newNumber]
+      } if (this.state.weatherStatis === 's'){
+        return scaleThree[newNumber]
       }
     });
     // console.log(newArray);
@@ -146,12 +162,6 @@ class App extends Component {
       index++;
     }, '8n');
   }
-
-
-
-
-
-
 
 
   startTone = () => {
@@ -193,19 +203,45 @@ class App extends Component {
     })
   }
 
+  onClickLandingPage = () => {
+    this.setState({
+      description:false
+    })
+    console.log('clicked');
+    console.log(this.state.description);
+
+  }
+  
+
   render() {
     // console.log(this.state.windDirection);
     return (
       <div className="App">
-        <h1>Weather <span>Synth App</span> </h1>
+
+       
+          
+            {this.state.description
+            ? 
+            <div className="wrapper">
+              <div className="landingPage">
+                  <h2>DESCRIPTION</h2>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit Corrupti aperiam quasi ipsa dolore quis sint quam doloribus fugit labore iure quos maiores sit temporibus laudantium doloremque debitis molestiae commodi error.</p>
+                  <button onClick={this.onClickLandingPage}>Enter</button>
+              </div>
+           </div>
+            : ''
+            }
+            
+
+        <h1><span className="headerWordOne">Weather</span> <span className="headerWordTwo">Synth</span></h1>
 
 
         <Form handleChange={this.handleChange} />
         <section>
           {/* Checking it loading is T/F to display loading on axios call */}
           {this.state.loading
-            ? <p className="loading"><i className="fas fa-spinner fa-pulse"></i></p>
-          : <div className="startStop">
+            ? <i className="fas fa-spinner fa-pulse"></i>
+            : <div className="startStop">
               <button onClick={this.state.melody ? null : this.startTone} id="startSong">Start</button>
               <button onClick={this.stopTone} id="stopSong">Stop</button>
             </div>
