@@ -16,8 +16,13 @@ class Form extends Component {
         })
     }
 
+    nullButton = (event) => {
+        event.preventDefault()
+    }
+
 
     render() {
+        console.log(this.props.melodyChange);
         return (
             <nav>
                 <form action=''>
@@ -32,7 +37,7 @@ class Form extends Component {
                         <option value='2351310'>Wellington</option>
                     </select>
 
-                    <button onClick={(e) => this.props.handleChange(e, this.state.userChoice)} type="submit">Launch</button>
+                    <button onClick={this.props.melodyChange ? this.nullButton : (e) => this.props.handleChange(e, this.state.userChoice)} type="submit">Launch</button>
                 </form>
             </nav>
         )

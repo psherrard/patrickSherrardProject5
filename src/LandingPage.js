@@ -25,7 +25,7 @@ class LandingPage extends Component{
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit Corrupti aperiam quasi ipsa dolore quis sint quam doloribus fugit labore iure quos maiores sit temporibus laudantium doloremque debitis molestiae commodi error.</p>
                             <button onClick={this.onClickLandingPage}>Enter</button>
                         </div>
-                    :   <div className="landingPage2"></div>
+                    :   ''
                 }
             </div>
         )

@@ -3,6 +3,7 @@ import './App.css';
 import axios from 'axios'
 import * as Tone from "tone";
 import Form from './Form'
+import LandingPage from './LandingPage';
 
 // C Major
 const scaleOne = {
@@ -140,7 +141,7 @@ class App extends Component {
       } if (this.state.weatherStatis === 'lr' || 'c') {
         return scaleTwo[newNumber]
       } if (this.state.weatherStatis === 's') {
-        return scaleThree[newNumber]
+        return scaleOne[newNumber]
       }
     });
     // console.log(newArray);
@@ -218,25 +219,12 @@ class App extends Component {
     return (
       <div className="App">
 
-
-{/* 
-        {this.state.description
-          ?
-          <div className="wrapper">
-            <div className="landingPage">
-              <h2>DESCRIPTION</h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit Corrupti aperiam quasi ipsa dolore quis sint quam doloribus fugit labore iure quos maiores sit temporibus laudantium doloremque debitis molestiae commodi error.</p>
-              <button onClick={this.onClickLandingPage}>Enter</button>
-            </div>
-          </div>
-          : ''
-        } */}
-
+        <LandingPage />
 
         <h1><span className="headerWordOne">Weather</span> <span className="headerWordTwo">Synth</span></h1>
 
 
-        <Form handleChange={this.handleChange} />
+        <Form handleChange={this.handleChange} melodyChange={this.state.melody} />
         <section>
           {/* Checking it loading is T/F to display loading on axios call */}
           {this.state.loading
