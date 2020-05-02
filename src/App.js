@@ -3,19 +3,18 @@ import './App.css';
 import axios from 'axios'
 import * as Tone from "tone";
 import Form from './Form'
-import LandingPage from './LandingPage'
 
-// C Minor
+// C Major
 const scaleOne = {
   0: 'C3',
   1: 'D3',
-  2: 'Eb3',
+  2: 'E3',
   3: 'F3',
   4: 'G3',
-  5: 'Ab3',
-  6: 'Bb3',
+  5: 'A3',
+  6: 'B3',
   7: 'G2',
-  8: 'Bb2',
+  8: 'B2',
   9: '0'
 }
 
@@ -33,7 +32,6 @@ const scaleTwo = {
   9: '0'
 }
 
-// Custom
 const scaleThree = {
   0: 'F3',
   1: 'Eb3',
@@ -47,45 +45,31 @@ const scaleThree = {
   9: '0'
 }
 
-//Thunderstorm
-const scaleThunder = {
-  0: 'C3',
-  1: 'Db3',
-  2: 'E3',
-  3: 'F2',
-  4: 'Gb3',
-  5: 'Ab1',
-  6: 'B2',
-  7: 'C2',
-  8: '0',
-  9: '0'
-}
-
 class App extends Component {
   constructor() {
     super();
     this.synth =
-    new Tone.Synth({
-      "oscillator": {
-        "type": "sine"
-      },
-      "envelope": {
-        "attack": 0.005,
-        "decay": 0.1,
-        "sustain": 0.3,
-        "release": 0.5
-      }
-    })
-    
+      new Tone.Synth({
+        "oscillator": {
+          "type": "sine"
+        },
+        "envelope": {
+          "attack": 0.005,
+          "decay": 0.1,
+          "sustain": 0.3,
+          "release": 0.5
+        }
+      })
+
     // citySelect a default value (Toronto)
     this.state = {
       citySelect: '',
-      weatherStatis:'',
+      weatherStatis: '',
       windSpeed: 0,
-      windDirection:0,
-      visibility:0,
-      humidity:0,
-      loading:false,
+      windDirection: 0,
+      visibility: 0,
+      humidity: 0,
+      loading: false,
       melody: false,
       description: true
       //ANY OTHER WEATHER PARAMETERS AND CHANGE WITH this.setState
@@ -101,8 +85,8 @@ class App extends Component {
 
   getWeather = () => {
     this.setState({
-      loading:true
-    },() => {
+      loading: true
+    }, () => {
       const url = `https://www.metaweather.com/api/location/${this.state.citySelect}`;
       axios({
         method: 'GET',
@@ -120,7 +104,7 @@ class App extends Component {
           windDirection: weatherData.wind_direction,
           visibility: weatherData.visibility,
           humidity: weatherData.humidity,
-          loading:false
+          loading: false
         });
       })
     })
@@ -151,17 +135,13 @@ class App extends Component {
     const numString = newVis.toString();
     const numNotes = [...numString]
     const newArray = numNotes.map((newNumber) => {
-      //THIS LOGIC MIGHT NEED SOME WORK...MAYBE AN ARRAY FOR EACH WEATHERSTATIS?
-      if (this.state.weatherStatis === 'hr'){
+      if (this.state.weatherStatis === 'hc') {
         return scaleThree[newNumber]
-      } if (this.state.weatherStatis === 'lc') {
+      } if (this.state.weatherStatis === 'lr' || 'c') {
         return scaleTwo[newNumber]
-      } if (this.state.weatherStatis === 's'){
-        return scaleOne[newNumber]
-      } if (this.state.weatherStatis === 't'){
-        return scaleThunder[newNumber]
+      } if (this.state.weatherStatis === 's') {
+        return scaleThree[newNumber]
       }
-      console.log(newNumber);
     });
     // console.log(newArray);
 
@@ -191,12 +171,12 @@ class App extends Component {
 
 
     this.setState({
-      melody:true
+      melody: true
     })
     //All Synth add ons and FXs, then route to master output ---------------------------------------- F X ----------------------------
     this.synth.volume.value = -20;
     // this.synth.portamento = '0.05';
-    const reverb = new Tone.JCReverb (reverbTime);
+    const reverb = new Tone.JCReverb(reverbTime);
     console.log(Tone.JCReverb.value);
     const phaser = new Tone.Phaser({
       "frequency": 0,
@@ -210,7 +190,7 @@ class App extends Component {
     //wind speed is setting the BPM (*8 to make sure its not too slow)
     Tone.Transport.bpm.value = (this.state.windSpeed) * 8
     // console.log(Tone.Transport.bpm.value);
-    Tone.Transport.start(); 
+    Tone.Transport.start();
     //Not sure why this.synth.triggerAttackRelease() is called a second time?
     this.synth.triggerAttackRelease();
     this.scheduleRepeat();
@@ -219,28 +199,44 @@ class App extends Component {
   stopTone = () => {
     Tone.Transport.stop();
     this.setState({
-      melody:false
+      melody: false
     })
   }
 
-  // onClickLandingPage = () => {
-  //   this.setState({
-  //     description:false
-  //   })
-  //   console.log('clicked');
-  //   console.log(this.state.description);
-  // }
-  
+  onClickLandingPage = () => {
+    this.setState({
+      description: false
+    })
+    console.log('clicked');
+    console.log(this.state.description);
+
+  }
+
 
   render() {
     // console.log(this.state.windDirection);
     return (
       <div className="App">
-        <LandingPage />
+
+
+{/* 
+        {this.state.description
+          ?
+          <div className="wrapper">
+            <div className="landingPage">
+              <h2>DESCRIPTION</h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit Corrupti aperiam quasi ipsa dolore quis sint quam doloribus fugit labore iure quos maiores sit temporibus laudantium doloremque debitis molestiae commodi error.</p>
+              <button onClick={this.onClickLandingPage}>Enter</button>
+            </div>
+          </div>
+          : ''
+        } */}
+
+
         <h1><span className="headerWordOne">Weather</span> <span className="headerWordTwo">Synth</span></h1>
 
-        <Form handleChange={this.handleChange} />
 
+        <Form handleChange={this.handleChange} />
         <section>
           {/* Checking it loading is T/F to display loading on axios call */}
           {this.state.loading
@@ -252,7 +248,6 @@ class App extends Component {
           }
         </section>
         <footer>
-          <p>Build by Patrick Sherard</p>
           <p>Made with Tone.js <span>and MetaWeather</span></p>
         </footer>
 

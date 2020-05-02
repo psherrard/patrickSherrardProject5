@@ -90,3 +90,9 @@ footer {
   overflow: hidden;
   transition: width 0.5s 0.5s, height 0.5s 0.5s, opacity 0.5s;
 } */
+
+/* --------------------------------------------------------------------------- C I T Y  F O R M ----------------------------- */
+
+.chooseACity {
+  color:grey
+}

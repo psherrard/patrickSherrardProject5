@@ -1,24 +1,24 @@
 import React, { Component } from 'react'
 // import { render } from '@testing-library/react';
 
-class Form extends Component{
-    constructor(){
+class Form extends Component {
+    constructor() {
         super();
         this.state = {
             userChoice: ''
         }
     }
-//Saving value from users choice of city and setting the state
+    //Saving value from users choice of city and setting the state
     getFormInfo = (event) => {
         // console.log(event.target.value);
         this.setState({
-            userChoice:event.target.value
+            userChoice: event.target.value
         })
     }
 
 
-    render(){
-        return(
+    render() {
+        return (
             <nav>
                 <form action=''>
                     <select onChange={this.getFormInfo} value={this.state.userChoice} name='whichCity' id='whichCity'>
@@ -41,4 +41,4 @@ class Form extends Component{
 
 
 
-    export default Form;
+export default Form;
