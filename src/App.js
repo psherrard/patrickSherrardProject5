@@ -44,7 +44,7 @@ class App extends Component {
         "attack": 0.005,
         "decay": 0.1,
         "sustain": 0.3,
-        "release": 0.8
+        "release": 0.5
       }
     })
     
