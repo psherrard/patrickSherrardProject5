@@ -111,6 +111,9 @@ footer p span {
 .landingPage p {
   margin-bottom: 30px;
   font-family: 'Quattrocento', serif;
+  letter-spacing: 0.8px;
+  line-height: 25px;
+  font-size: 0.9rem;
   
 }
 
