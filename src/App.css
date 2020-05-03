@@ -25,18 +25,28 @@ body{
 h1,footer {
   color:white;
 }
-
+/* 
 .headerWordOne {
   color:white;
   font-size: 2rem;
-  /* margin-right:30px; */
+
   text-align: center;
 }
 
 .headerWordTwo {
   color:black;
   font-size:2rem;
-  /* margin-left:30px; */
+
+} */
+
+.headerTitle {
+  display:flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.headerTitle span {
+  color: black;
 }
 
 footer p span {
@@ -58,7 +68,7 @@ footer {
 }
 
 .fa-spinner {
-  color:rgb(128, 128, 128);
+  color:rgba(151, 151, 151, 0.726);
   margin-top:50px;
   font-size:3rem;
 }

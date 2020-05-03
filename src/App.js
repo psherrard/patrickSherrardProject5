@@ -8,7 +8,7 @@ import LandingPage from './LandingPage';
 // C Major
 const scaleOne = {
   0: 'C3',
-  1: 'D3',
+  1: 'C#/Db',
   2: 'E3',
   3: 'F3',
   4: 'G3',
@@ -33,6 +33,7 @@ const scaleTwo = {
   9: '0'
 }
 
+//Custom
 const scaleThree = {
   0: 'F3',
   1: 'Eb3',
@@ -46,13 +47,41 @@ const scaleThree = {
   9: '0'
 }
 
+//Lydian
+const scaleFour = {
+  0: 'C3',
+  1: 'D3',
+  2: 'E3',
+  3: 'F#3',
+  4: 'G3',
+  5: 'A3',
+  6: 'B3',
+  7: 'C2',
+  8: 'F#2',
+  9: '0'
+}
+
+// Hirajōshi
+const scaleFive = {
+  0: 'C3',
+  1: 'Db3',
+  2: 'F3',
+  3: 'Gb3',
+  4: 'Bb3',
+  5: 'C4',
+  6: 'Bb2',
+  7: 'Gb2',
+  8: 'Db4',
+  9: '0'
+}
+
 class App extends Component {
   constructor() {
     super();
     this.synth =
       new Tone.Synth({
         "oscillator": {
-          "type": "sine"
+          "type": "square"
         },
         "envelope": {
           "attack": 0.005,
@@ -136,12 +165,12 @@ class App extends Component {
     const numString = newVis.toString();
     const numNotes = [...numString]
     const newArray = numNotes.map((newNumber) => {
-      if (this.state.weatherStatis === 'hc') {
-        return scaleThree[newNumber]
+        if (this.state.weatherStatis === 'hc') {
+        return scaleFive[newNumber]
       } if (this.state.weatherStatis === 'lr' || 'c') {
-        return scaleTwo[newNumber]
+        return scaleFive[newNumber]
       } if (this.state.weatherStatis === 's') {
-        return scaleOne[newNumber]
+        return scaleFive[newNumber]
       }
     });
     // console.log(newArray);
@@ -221,10 +250,16 @@ class App extends Component {
 
         <LandingPage />
 
-        <h1><span className="headerWordOne">Weather</span> <span className="headerWordTwo">Synth</span></h1>
+        {/* <h1><span className="headerWordOne">Weather</span> <span className="headerWordTwo">Synth</span></h1> */}
+        <header>
+          <div className="headerTitle">
+            <h1>Weather</h1>
+            <h1><span>Synth</span></h1>
+          </div>
+          <Form handleChange={this.handleChange} melodyChange={this.state.melody} />
+        </header>
 
 
-        <Form handleChange={this.handleChange} melodyChange={this.state.melody} />
         <section>
           {/* Checking it loading is T/F to display loading on axios call */}
           {this.state.loading
