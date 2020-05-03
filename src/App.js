@@ -196,7 +196,7 @@ class App extends Component {
 
   startTone = () => {
     // Reverb equation
-    const reverbTime = (this.state.humidity / 100) - 0.15
+    const reverbTime = (this.state.humidity / 100) 
     console.log(reverbTime);
 
 
@@ -246,15 +246,15 @@ class App extends Component {
   render() {
     // console.log(this.state.windDirection);
     return (
-      <div className="App">
-
+      <div>
+ 
         <LandingPage />
 
         {/* <h1><span className="headerWordOne">Weather</span> <span className="headerWordTwo">Synth</span></h1> */}
         <header>
           <div className="headerTitle">
-            <h1>Weather</h1>
-            <h1><span>Synth</span></h1>
+            <h1>WEATHER</h1>
+            <h1>SYNTH</h1>
           </div>
           <Form handleChange={this.handleChange} melodyChange={this.state.melody} />
         </header>
@@ -271,7 +271,8 @@ class App extends Component {
           }
         </section>
         <footer>
-          <p>Made with Tone.js <span>and MetaWeather</span></p>
+          <p><span>Built by Patr</span>ick Sherrard</p>
+          <p><span>Made with Tone.js</span> and MetaWeather</p>
         </footer>
 
       </div>

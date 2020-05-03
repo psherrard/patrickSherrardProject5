@@ -7,42 +7,45 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 .visuallyHidden:not(:focus):not(:active) { position: absolute; width: 1px; height: 1px; margin: -1px;border: 0;padding: 0;white-space: nowrap;clip-path: inset(100%);clip: rect(00 0 0);overflow: hidden;}
 
 
+/* 
+font-family: 'Cinzel', serif;
+
+font-family: 'Quattrocento', serif; */
+
+
+
+
 html {
   font-size: 125%;
-  /* Might not need this....maybe I will? */
   height:100vh;
-}
-
-.App {
   text-align: center;
 }
+
+
 
 body{
-  background: rgb(0,0,0);
-  background: linear-gradient(90deg, rgba(0,0,0,1) 50%, rgba(255,255,255,1) 50%);
+  background-image: url(./assets/project5Bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-h1,footer {
-  color:white;
-}
-/* 
-.headerWordOne {
-  color:white;
-  font-size: 2rem;
-
-  text-align: center;
-}
-
-.headerWordTwo {
-  color:black;
-  font-size:2rem;
-
-} */
 
 .headerTitle {
-  display:flex;
-  justify-content: space-evenly;
-  align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.headerTitle h1 {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 40px;
+    font-size: 1.3rem;
+    margin-top: 60px;
+}
+
+.headerTitle h1:first-child {
+    color: white;
 }
 
 .headerTitle span {
@@ -53,12 +56,24 @@ footer p span {
   color:black;
 }
 
-footer {
- position: fixed; 
- bottom: 0;
- left:40%;
- right:40%;
- width:20%;
+footer{
+    position: fixed; 
+    bottom: 0;
+    left:30.45%;
+    right:30%;
+    width:40%;
+    padding-bottom: 20px;
+    font-size:10px;
+    text-align: center;
+    letter-spacing: 1px;
+}   
+
+footer p:first-child {
+    padding-right: 2.8px;
+}
+
+footer p span {
+    color:white;
 }
 
 .startStop button {
