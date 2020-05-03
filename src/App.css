@@ -22,7 +22,6 @@ html {
 }
 
 
-
 body{
   background-image: url(./assets/project5Bg.jpg);
   background-size: cover;
@@ -32,20 +31,20 @@ body{
 
 
 .headerTitle {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .headerTitle h1 {
-    font-family: 'Cinzel', serif;
-    letter-spacing: 40px;
-    font-size: 1.3rem;
-    margin-top: 60px;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 40px;
+  font-size: 1.3rem;
+  margin-top: 60px;
 }
 
 .headerTitle h1:first-child {
-    color: white;
+  color: white;
 }
 
 .headerTitle span {
@@ -57,23 +56,23 @@ footer p span {
 }
 
 footer{
-    position: fixed; 
-    bottom: 0;
-    left:30.45%;
-    right:30%;
-    width:40%;
-    padding-bottom: 20px;
-    font-size:10px;
-    text-align: center;
-    letter-spacing: 1px;
+  position: fixed; 
+  bottom: 0;
+  left:30.45%;
+  right:30%;
+  width:40%;
+  padding-bottom: 20px;
+  font-size:10px;
+  text-align: center;
+  letter-spacing: 1px;
 }   
 
 footer p:first-child {
-    padding-right: 2.8px;
+  padding-right: 2.8px;
 }
 
 footer p span {
-    color:white;
+  color:white;
 }
 
 .startStop button {
@@ -84,40 +83,68 @@ footer p span {
 
 .fa-spinner {
   color:rgba(151, 151, 151, 0.726);
-  margin-top:50px;
+  margin-top:250px;
   font-size:3rem;
 }
 
 /* --------------------------------------------------------------------------- L A N D I N G  P A G E ----------------------------- */
 
-.landingPage1{
-  background-color: rgba(145, 145, 145, 0.705);
+.landingPage{
+  background-color: rgba(145, 145, 145, 0.774);
   height:100vh;
   width: 100%;
   position: absolute;
-  padding-top: 200px;
+  padding-top: 270px;
   padding-right:20%;
   padding-left:20%;
   z-index: 1;
   opacity: 1;
 }
-/* 
-.landingPage2{
-  background-color: rgba(145, 145, 145, 0.705);
-  height:0%;
-  width: 0%;
-  padding-top: 200px;
-  padding-right:20%;
-  padding-left:20%;
-  display: none;
-  position: absolute;
-  opacity: 0;
-  overflow: hidden;
-  transition: width 0.5s 0.5s, height 0.5s 0.5s, opacity 0.5s;
-} */
+
+.landingPage h2 {
+  font-family: 'Cinzel', serif;
+  margin-bottom: 30px;
+  font-size: 1.3rem;
+  letter-spacing: 20px;
+}
+
+.landingPage p {
+  margin-bottom: 30px;
+  font-family: 'Quattrocento', serif;
+  
+}
+
 
 /* --------------------------------------------------------------------------- C I T Y  F O R M ----------------------------- */
 
-.chooseACity {
-  color:grey
+
+.formMenu {
+  position: fixed; 
+  top: 200px;
+  left: 29.6%;
+  right: 29.6%;
+  width: 40%;
+  padding-bottom: 20px;
+  font-size:0.8rem;
+  text-align: center;
+}
+
+
+.btnLaunch,
+.formMenu select{
+  padding:10px 40px;
+  font-family: 'Quattrocento', serif;
+  letter-spacing: 0.8px;
+}
+
+.formMenu select {
+  padding: 10px 22.5px;
+}
+
+
+.formMenu select {
+  border:none;
+  margin-right:20px;
+  font-family: 'Quattrocento', serif;
+    
 }

@@ -20,7 +20,7 @@ class LandingPage extends Component{
         return(
             <div>
                 {this.state.description
-                    ?   <div className="landingPage1">
+                    ?   <div className="landingPage">
                             <h2>DESCRIPTION</h2>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit Corrupti aperiam quasi ipsa dolore quis sint quam doloribus fugit labore iure quos maiores sit temporibus laudantium doloremque debitis molestiae commodi error.</p>
                             <button onClick={this.onClickLandingPage}>Enter</button>

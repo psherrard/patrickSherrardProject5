@@ -165,11 +165,15 @@ class App extends Component {
     const numString = newVis.toString();
     const numNotes = [...numString]
     const newArray = numNotes.map((newNumber) => {
-        if (this.state.weatherStatis === 'hc') {
-        return scaleFive[newNumber]
+        if (this.state.weatherStatis === 'lc') {
+        return scaleOne[newNumber]
       } if (this.state.weatherStatis === 'lr' || 'c') {
-        return scaleFive[newNumber]
+        return scaleTwo[newNumber]
       } if (this.state.weatherStatis === 's') {
+        return scaleThree[newNumber]
+      } if (this.state.weatherStatis === 'hc' || 't') {
+        return scaleFour[newNumber]
+      } if (this.state.weatherStatis === 'hr') {
         return scaleFive[newNumber]
       }
     });
@@ -196,7 +200,7 @@ class App extends Component {
 
   startTone = () => {
     // Reverb equation
-    const reverbTime = (this.state.humidity / 100) 
+    const reverbTime = (this.state.humidity / 100) - 0.08
     console.log(reverbTime);
 
 
@@ -250,7 +254,7 @@ class App extends Component {
  
         <LandingPage />
 
-        {/* <h1><span className="headerWordOne">Weather</span> <span className="headerWordTwo">Synth</span></h1> */}
+{/* I know that two h1's arent best practise, but it was the best way to achieve the effect and keep them center */}
         <header>
           <div className="headerTitle">
             <h1>WEATHER</h1>
@@ -258,7 +262,6 @@ class App extends Component {
           </div>
           <Form handleChange={this.handleChange} melodyChange={this.state.melody} />
         </header>
-
 
         <section>
           {/* Checking it loading is T/F to display loading on axios call */}

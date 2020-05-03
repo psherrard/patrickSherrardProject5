@@ -25,7 +25,7 @@ class Form extends Component {
         console.log(this.props.melodyChange);
         return (
             <nav>
-                <form action=''>
+                <form className="formMenu" action=''>
                     <select onChange={this.getFormInfo} value={this.state.userChoice} name='whichCity' id='whichCity'>
                         {/* <option value=''>Choose A City</option> */}
                         <option value='' disabled selected>Choose A City</option>
@@ -37,7 +37,7 @@ class Form extends Component {
                         <option value='2351310'>Wellington</option>
                     </select>
 
-                    <button onClick={this.props.melodyChange ? this.nullButton : (e) => this.props.handleChange(e, this.state.userChoice)} type="submit">Launch</button>
+                    <button className="btnLaunch btnGlobal" onClick={this.props.melodyChange ? this.nullButton : (e) => this.props.handleChange(e, this.state.userChoice)} type="submit">Launch</button>
                 </form>
             </nav>
         )
