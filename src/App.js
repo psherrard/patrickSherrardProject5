@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import './Setup.css'
 import './App.css';
-import axios from 'axios'
+import './Button.css';
+import './MediaQuery.css';
+import axios from 'axios';
 import * as Tone from "tone";
-import Form from './Form'
+import Form from './Form';
 import LandingPage from './LandingPage';
 
 // C Major

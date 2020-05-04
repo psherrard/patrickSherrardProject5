@@ -1,0 +1,43 @@
+.btnGlobal,
+.btnLaunch,
+.formMenu select {
+  padding: 10px 40px;
+  font-family: 'Quattrocento', serif;
+  letter-spacing: 0.8px;
+}
+
+.btnLandingPage,
+.btnLaunch {
+  background-color: white;
+}
+
+.btnLandingPage {
+  border: none;
+}
+
+.btnLaunch {
+  border: 2px solid black;
+}
+
+.btnStart,
+.btnStop {
+  margin-top: 100px;
+  margin-right: 50px;
+  margin-left: 50px;
+}
+
+.btnStart {
+  background-color: black;
+  border: 2px solid white;
+  color: white;
+}
+
+.btnGlobal:active {
+  background-color: grey;
+}
+
+.btnStop {
+  background-color: white;
+  border: 2px solid black;
+}
+/*# sourceMappingURL=Button.css.map */

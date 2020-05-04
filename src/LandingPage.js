@@ -1,4 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import './Setup.css'
+import './Button.css';
+import './LandingPage.css';
+import './MediaQuery.css';
 
 
 class LandingPage extends Component{
