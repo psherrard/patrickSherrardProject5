@@ -6,6 +6,7 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 
 .visuallyHidden:not(:focus):not(:active) { position: absolute; width: 1px; height: 1px; margin: -1px;border: 0;padding: 0;white-space: nowrap;clip-path: inset(100%);clip: rect(00 0 0);overflow: hidden;}
 
+/* NOTE: This is not the intended style I had planned, I wanted to import SASS. I honestly feel that this is sloppy for me. There were some major bugs in my react logic and that took up most of my time. I plan to clean up this code for my portfolio */
 
 html {
   font-size: 125%;
@@ -34,20 +35,13 @@ body{
   margin-top: 60px;
 }
 
-.headerTitle h1:first-child {
-  color: white;
-}
-
-.headerTitle span {
+.headerTitle span,
+footer p span {
   color: black;
 }
 
 .startStop {
   margin-top: 170px;
-}
-
-footer p span {
-  color:black;
 }
 
 footer {
@@ -66,39 +60,19 @@ footer p:first-child {
   padding-right: 2.8px;
 }
 
-footer p span {
+footer p span,
+.headerTitle h1:first-child {
   color:white;
 }
 
-.startStop button {
-  margin-top: 100px;
-  margin-right:50px;
-  margin-left:50px;
-}
-
 .fa-spinner {
-  color:rgba(151, 151, 151, 0.726);
+  color: rgba(145, 145, 145, 0.774);
   margin-top:250px;
   font-size:3rem;
 }
 
-.btnStart {
-  background-color: black;
-  border: 2px solid white;
-  color:white;
-}
 
-.btnGlobal:active {
-  background-color: grey;
-}
-
-.btnStop {
-  background-color: white;
-  border: 2px solid black;
-}
-
-
-/* --------------------------------------------------------------------------- L A N D I N G  P A G E ----------------------------- */
+/* --- Landing Page --- */
 
 .landingPage{
   background-color: rgba(145, 145, 145, 0.774);
@@ -127,9 +101,7 @@ footer p span {
   font-size: 0.9rem;
 }
 
-
-/* --------------------------------------------------------------------------- C I T Y  F O R M ----------------------------- */
-
+/* --- Form --- */
 
 .formMenu {
   position: fixed; 
@@ -141,6 +113,16 @@ footer p span {
   font-size:0.8rem;
   text-align: center;
 }
+
+.formMenu select {
+  padding: 10px 22.5px;
+  border:none;
+  margin-right:20px;
+  font-family: 'Quattrocento', serif;
+  cursor: pointer;
+}
+
+/* --- Button --- */
 
 .btnGlobal,
 .btnLaunch,
@@ -161,10 +143,112 @@ footer p span {
   border:2px solid black;
 }
 
-.formMenu select {
-  padding: 10px 22.5px;
-  border:none;
-  margin-right:20px;
-  font-family: 'Quattrocento', serif;
-  cursor: pointer;
+.btnStart,
+.btnStop {
+  margin-top: 100px;
+  margin-right:50px;
+  margin-left:50px;
+}
+
+.btnStart {
+  background-color: black;
+  border: 2px solid white;
+  color:white;
+}
+
+.btnGlobal:active {
+  background-color: grey;
+}
+
+.btnStop {
+  background-color: white;
+  border: 2px solid black;
+}
+
+
+/* --- Media Query --- */
+
+@media (max-width:900px){
+
+  .headerTitle h1,
+  .landingPage h2 {
+    font-size:0.8rem;
+    letter-spacing: 20px;
+  }
+
+  .landingPage p {
+    letter-spacing: 0.6px;
+    line-height: 20px;
+    font-size: 0.6rem;
+  }
+
+  .landingPage {
+    padding-top:180px;
+  }
+
+  .btnGlobal,
+  .btnLaunch,
+  .formMenu select{
+    padding:5px 30px;
+    letter-spacing: 0.6px;
+    font-size: 0.6rem;
+  }
+
+  .formMenu {
+    left: 6.7%;
+    width: 80%;
+    padding-bottom: 20px;
+  }
+
+  footer {
+    left: 30.65%;
+  }
+
+}
+
+@media (max-width:500px){
+
+  .headerTitle {
+    justify-content: space-evenly;
+  }
+
+  .headerTitle h1 {
+    font-size:0.9rem;
+    letter-spacing: 9px;
+  }
+  .headerTitle h1,
+  .landingPage h2 {
+    font-size:0.7rem;
+  }
+
+  .landingPage h2 {
+    letter-spacing: 3px;
+  }
+
+  footer {
+    left: 21.8%;
+    right: 19.2%;
+    width: 60%;
+  }
+}
+
+@media(max-width:383px){
+  .btnStart,
+  .btnStop {
+    margin-right:25px;
+    margin-left:25px;
+  }
+}
+
+@media (max-width:368px){
+  .formMenu select {
+    margin-left:20px;
+    margin-bottom:20px;
+  }
+
+  .btnLaunch {
+    padding-right: 60px;
+    padding-left:60px;
+  }
+
 }
