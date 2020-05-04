@@ -7,16 +7,13 @@
 }
 
 .btnLandingPage,
-.btnLaunch {
+.btnLaunch,
+.btnStop {
   background-color: white;
 }
 
 .btnLandingPage {
   border: none;
-}
-
-.btnLaunch {
-  border: 2px solid black;
 }
 
 .btnStart,
@@ -36,8 +33,8 @@
   background-color: grey;
 }
 
-.btnStop {
-  background-color: white;
+.btnStop,
+.btnLaunch {
   border: 2px solid black;
 }
 /*# sourceMappingURL=Button.css.map */

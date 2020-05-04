@@ -17,8 +17,6 @@ class LandingPage extends Component{
         this.setState({
             description: false
         })
-        console.log('clicked');
-        console.log(this.state.description);
     }
     render(){
         return(

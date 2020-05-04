@@ -84,7 +84,7 @@ class App extends Component {
     this.synth =
       new Tone.Synth({
         "oscillator": {
-          "type": "square"
+          "type": "triangle"
         },
         "envelope": {
           "attack": 0.005,
@@ -94,7 +94,6 @@ class App extends Component {
         }
       })
 
-    // citySelect a default value (Toronto)
     this.state = {
       citySelect: '',
       weatherStatis: '',
@@ -105,15 +104,12 @@ class App extends Component {
       loading: false,
       melody: false,
       description: true
-      //ANY OTHER WEATHER PARAMETERS AND CHANGE WITH this.setState
     }
-    // console.log(this.state.citySelect);
+
   }
   componentDidMount() {
     //call this.getWeather once the component is rendered
-    //Maybe put synth on this too
     this.getWeather()
-    // console.log(this.getWeather);
   }
 
   getWeather = () => {
@@ -141,29 +137,21 @@ class App extends Component {
         });
       })
     })
-    //last digits (4118) will need to be stored in a variable to select different cities
   }
 
   handleChange = (event, metropolis) => {
     event.preventDefault();
-    console.log('hello?');
-    // console.log(metropolis);
     //update the citySelect in state and make new axios call
     this.setState({
       citySelect: metropolis
     }, () => this.getWeather())
-    // console.log(this.state.citySelect);
   }
 
 
   repeat = (time, index) => {
-    // --------------------------------------------------------------------------------------------- L O G I C -----------------------
-    console.log('index #', index);
-    // let note = notes[index % notes.length];
     // Notes playing equation
     // I've taken wind direction and added visibility to diversify the note array, then times it to move the decimal
     const windD = (this.state.windDirection + this.state.visibility) * 100000000000
-    // console.log(windD);
     const newVis = Math.round(windD)
     const numString = newVis.toString();
     const numNotes = [...numString]
@@ -179,22 +167,16 @@ class App extends Component {
       } if (this.state.weatherStatis === 'hr') {
         return scaleFive[newNumber]
       }
+      // I wanted to make a scale for every weather paramater (ten in total), but I wasn't sure about how many global objects I should have.
     });
-    // console.log(newArray);
-
-    const arrayOne = newArray
-    console.log(arrayOne);
     let note = newArray[index % newArray.length];
     this.synth.triggerAttackRelease(note, '8n', time)
-    // console.log(this.state.weatherStatis);
   }
 
 
   scheduleRepeat = () => {
     let index = 0;
-    console.log(index, 'index?');
     Tone.Transport.scheduleRepeat(time => {
-      //do something with the time
       this.repeat(time, index);
       index++;
     }, '8n');
@@ -204,17 +186,13 @@ class App extends Component {
   startTone = () => {
     // Reverb equation
     const reverbTime = (this.state.humidity / 100) - 0.08
-    console.log(reverbTime);
-
-
     this.setState({
       melody: true
     })
-    //All Synth add ons and FXs, then route to master output ---------------------------------------- F X ----------------------------
+    //All Synth add ons and FXs, then route to master output
     this.synth.volume.value = -20;
-    // this.synth.portamento = '0.05';
+    this.synth.portamento = '0.01';
     const reverb = new Tone.JCReverb(reverbTime);
-    console.log(Tone.JCReverb.value);
     const phaser = new Tone.Phaser({
       "frequency": 0,
       "octaves": 2,
@@ -226,9 +204,7 @@ class App extends Component {
 
     //wind speed is setting the BPM (*8 to make sure its not too slow)
     Tone.Transport.bpm.value = (this.state.windSpeed) * 8
-    // console.log(Tone.Transport.bpm.value);
     Tone.Transport.start();
-    //Not sure why this.synth.triggerAttackRelease() is called a second time?
     this.synth.triggerAttackRelease();
     this.scheduleRepeat();
   }
@@ -244,19 +220,12 @@ class App extends Component {
     this.setState({
       description: false
     })
-    console.log('clicked');
-    console.log(this.state.description);
-
   }
 
-
   render() {
-    // console.log(this.state.windDirection);
     return (
       <div>
- 
         <LandingPage />
-
 {/* I know that two h1's arent best practise, but it was the best way to achieve the effect and keep them center */}
         <header>
           <div className="headerTitle">
@@ -265,9 +234,9 @@ class App extends Component {
           </div>
           <Form handleChange={this.handleChange} melodyChange={this.state.melody} />
         </header>
-
         <section>
           {/* Checking it loading is T/F to display loading on axios call */}
+          {/* I couldn't figure out the logic to make the spinner not appear when the page first loaded. I know I'm getting a 400 error because my axios call doesnt have a proper end point. I tried to make a condistional setState, but I ended up breaking everything. */}
           {this.state.loading
             ? <i className="fas fa-spinner fa-pulse"></i>
             : <div className="startStop">
@@ -280,7 +249,6 @@ class App extends Component {
           <p><span>Built by Patr</span>ick Sherrard</p>
           <p><span>Made with Tone.js</span> and MetaWeather</p>
         </footer>
-
       </div>
     );
   }

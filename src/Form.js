@@ -13,7 +13,6 @@ class Form extends Component {
     }
     //Saving value from users choice of city and setting the state
     getFormInfo = (event) => {
-        // console.log(event.target.value);
         this.setState({
             userChoice: event.target.value
         })
@@ -23,14 +22,12 @@ class Form extends Component {
         event.preventDefault()
     }
 
-
     render() {
-        console.log(this.props.melodyChange);
         return (
             <nav>
                 <form className="formMenu" action=''>
                     <select onChange={this.getFormInfo} value={this.state.userChoice} name='whichCity' id='whichCity'>
-                        {/* <option value=''>Choose A City</option> */}
+{/* disabled selected is giving me a warning, but it's achieving what I need. */}
                         <option value='' disabled selected>Choose A City</option>
                         <option value='4118' >Toronto</option>
                         <option value='565346' >Helsinki</option>
@@ -39,7 +36,6 @@ class Form extends Component {
                         <option value='15015372'>Kyoto</option>
                         <option value='2351310'>Wellington</option>
                     </select>
-
                     <button className="btnLaunch btnGlobal" onClick={this.props.melodyChange ? this.nullButton : (e) => this.props.handleChange(e, this.state.userChoice)} type="submit">Launch</button>
                 </form>
             </nav>

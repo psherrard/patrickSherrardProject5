@@ -12,15 +12,18 @@
 
 .landingPage h2 {
   font-family: 'Cinzel', serif;
-  margin-bottom: 30px;
   font-size: 1.3rem;
   letter-spacing: 20px;
 }
 
 .landingPage p {
-  margin-bottom: 30px;
   font-family: 'Quattrocento', serif;
   letter-spacing: 0.8px;
   line-height: 25px;
   font-size: 0.9rem;
+}
+
+.landingPage p,
+.landingPage h2{
+  margin-bottom: 30px;
 }
