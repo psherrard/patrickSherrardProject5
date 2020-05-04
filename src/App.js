@@ -8,7 +8,7 @@ import LandingPage from './LandingPage';
 // C Major
 const scaleOne = {
   0: 'C3',
-  1: 'C#/Db',
+  1: 'D3',
   2: 'E3',
   3: 'F3',
   4: 'G3',
