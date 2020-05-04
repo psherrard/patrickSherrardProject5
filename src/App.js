@@ -268,9 +268,9 @@ class App extends Component {
           {this.state.loading
             ? <i className="fas fa-spinner fa-pulse"></i>
             : <div className="startStop">
-              <button onClick={this.state.melody ? null : this.startTone} id="startSong">Start</button>
-              <button onClick={this.stopTone} id="stopSong">Stop</button>
-            </div>
+                <button className="btnGlobal btnStart" onClick={this.state.melody ? null : this.startTone} id="startSong">Start</button>
+                <button className="btnGlobal btnStop" onClick={this.stopTone} id="stopSong">Stop</button>
+              </div>
           }
         </section>
         <footer>
