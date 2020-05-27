@@ -1,9 +1,4 @@
 import React, { Component } from 'react';
-import './Setup.css'
-import './Button.css';
-import './Form.css';
-import './MediaQuery.css';
-
 class Form extends Component {
     constructor() {
         super();

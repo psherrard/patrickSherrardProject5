@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import './Setup.css'
-import './App.css';
-import './Button.css';
-import './MediaQuery.css';
+import './App.scss';
 import axios from 'axios';
 import * as Tone from "tone";
 import Form from './Form';
@@ -167,7 +164,6 @@ class App extends Component {
       } if (this.state.weatherStatis === 'hr') {
         return scaleFive[newNumber]
       }
-      // I wanted to make a scale for every weather paramater (ten in total), but I wasn't sure about how many global objects I should have.
     });
     let note = newArray[index % newArray.length];
     this.synth.triggerAttackRelease(note, '8n', time)
@@ -184,23 +180,11 @@ class App extends Component {
 
 
   startTone = () => {
-    // Reverb equation
-    const reverbTime = (this.state.humidity / 100) - 0.08
     this.setState({
       melody: true
     })
-    //All Synth add ons and FXs, then route to master output
-    this.synth.volume.value = -20;
-    this.synth.portamento = '0.01';
-    const reverb = new Tone.JCReverb(reverbTime);
-    const phaser = new Tone.Phaser({
-      "frequency": 0,
-      "octaves": 2,
-      "baseFrequency": 0
-    })
-    this.synth.connect(phaser)
-    phaser.connect(reverb)
-    reverb.toMaster();
+    // Currently all FXs are offline untill next update
+    this.synth.toMaster();
 
     //wind speed is setting the BPM (*8 to make sure its not too slow)
     Tone.Transport.bpm.value = (this.state.windSpeed) * 8

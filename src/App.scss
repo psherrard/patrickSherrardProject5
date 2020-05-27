@@ -1,63 +1,6 @@
-html {
-  font-size: 125%;
-  height:100vh;
-  text-align: center;
-}
-
-body{
-  background-image: url(./assets/project5Bg.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.headerTitle {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.headerTitle h1 {
-  font-family: 'Cinzel', serif;
-  letter-spacing: 40px;
-  font-size: 1.3rem;
-  margin-top: 60px;
-}
-
-.headerTitle span,
-footer p span {
-  color: black;
-}
-
-.startStop {
-  margin-top: 170px;
-}
-
-footer {
-  position: fixed; 
-  bottom: 0;
-  left:30.45%;
-  right:30%;
-  width:40%;
-  padding-bottom: 20px;
-  font-size:10px;
-  text-align: center;
-  letter-spacing: 1px;
-}   
-
-footer p:first-child {
-  padding-right: 2.8px;
-}
-
-footer p span,
-.headerTitle h1:first-child {
-  color:white;
-}
-
-.fa-spinner {
-  color: rgba(145, 145, 145, 0.774);
-  margin-top:250px;
-  font-size:3rem;
-}
-
-
+@import './partials/Setup.scss';
+@import './partials/Home.scss';
+@import './partials/LandingPage.scss';
+@import './partials/Form.scss';
+@import './partials/Button.scss';
+@import './partials/MediaQuery.scss';

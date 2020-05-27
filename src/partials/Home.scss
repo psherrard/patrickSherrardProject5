@@ -1,25 +1,20 @@
 html {
   font-size: 125%;
-  height: 100vh;
+  height:100vh;
   text-align: center;
 }
 
-body {
-  background-image: url(./assets/project5Bg.jpg);
+body{
+  background-image: url(../assets/project5Bg.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .headerTitle {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .headerTitle h1 {
@@ -39,16 +34,16 @@ footer p span {
 }
 
 footer {
-  position: fixed;
+  position: fixed; 
   bottom: 0;
-  left: 30.45%;
-  right: 30%;
-  width: 40%;
+  left:30.45%;
+  right:30%;
+  width:40%;
   padding-bottom: 20px;
-  font-size: 10px;
+  font-size:10px;
   text-align: center;
   letter-spacing: 1px;
-}
+}   
 
 footer p:first-child {
   padding-right: 2.8px;
@@ -56,12 +51,13 @@ footer p:first-child {
 
 footer p span,
 .headerTitle h1:first-child {
-  color: white;
+  color:white;
 }
 
 .fa-spinner {
   color: rgba(145, 145, 145, 0.774);
-  margin-top: 250px;
-  font-size: 3rem;
+  margin-top:250px;
+  font-size:3rem;
 }
-/*# sourceMappingURL=App.css.map */
+
+

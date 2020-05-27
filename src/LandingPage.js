@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './Setup.css'
-import './Button.css';
-import './LandingPage.css';
-import './MediaQuery.css';
+// import './partials/Setup.scss'
+// import './partials/Button.scss';
+// import './partials/LandingPage.scss';
+// import './partials/MediaQuery.scss';
 
 
 class LandingPage extends Component{
@@ -24,7 +24,7 @@ class LandingPage extends Component{
                 {this.state.description
                     ?   <div className="landingPage">
                             <h2>DESCRIPTION</h2>
-                            <p>Welcome to Weather Synth. This app use’s real time weather data from different cities across the world to shape sound. As the user, you get to choose what city you want to listen to. What you’re listening to is varius weather parameters affecting the synth by picking which notes are played and in what scale. As well as the amount of reverb, chorus, phaser and delay. The speed of the song is determined by the wind speed and the oscillator by the weather condition. Press start to hear the end result. </p>
+                            <p>This app collects real time data from different cities across the world and composes it into a soundscape that signifies the active weather system present in your selected city. Various weather parameters affect the synth by impacting which notes are played and in what scale, as well as the amount of reverb, chorus, phaser and delay. Similar to a wind chime, the speed of wind determines the pace of the composition. The oscillator's variations in waveform are subject to the condensation of cloud formations and precipitation from rain or snow within the chosen atmosphere.</p>
                             <button className="btnGlobal btnLandingPage" onClick={this.onClickLandingPage}>Enter</button>
                         </div>
                     :   ''
