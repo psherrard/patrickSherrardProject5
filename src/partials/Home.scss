@@ -1,17 +1,21 @@
-html {
-  font-size: 125%;
-  height:100vh;
-  text-align: center;
-}
-
-body{
-  background-image: url(../assets/project5Bg.jpg);
+.weatherBG{
+  width: 100%;
+  top:100px;
+  position: absolute;
+  // margin-top:120px;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background:url(../assets/cloud.png) repeat-x 0 / 100% auto;
+  height:300px; 
+  animation: ani 15s linear infinite ;
+    @keyframes ani {
+      0%{background-position: 0 0;}
+      100%{background-position: 100vw 0;}
+    }
 }
 
 .headerTitle {
+  // position: fixed;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -21,7 +25,7 @@ body{
   font-family: 'Cinzel', serif;
   letter-spacing: 40px;
   font-size: 1.3rem;
-  margin-top: 60px;
+  // margin-top: -60px;
 }
 
 .headerTitle span,
@@ -33,29 +37,29 @@ footer p span {
   margin-top: 170px;
 }
 
-footer {
-  position: fixed; 
-  bottom: 0;
-  left:30.45%;
-  right:30%;
-  width:40%;
-  padding-bottom: 20px;
-  font-size:10px;
-  text-align: center;
-  letter-spacing: 1px;
-}   
+// footer {
+//   position: fixed; 
+//   bottom: 0;
+//   left:30.45%;
+//   right:30%;
+//   width:40%;
+//   padding-bottom: 20px;
+//   font-size:10px;
+//   text-align: center;
+//   letter-spacing: 1px;
+// }   
 
-footer p:first-child {
-  padding-right: 2.8px;
-}
+// footer p:first-child {
+//   padding-right: 2.8px;
+// }
 
-footer p span,
-.headerTitle h1:first-child {
-  color:white;
-}
+// footer p span,
+// .headerTitle h1:first-child {
+//   color:white;
+// }
 
 .fa-spinner {
-  color: rgba(145, 145, 145, 0.774);
+  color: rgba(173, 232, 240, 0.89);
   margin-top:250px;
   font-size:3rem;
 }
