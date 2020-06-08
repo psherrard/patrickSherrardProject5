@@ -1,5 +1,4 @@
 .btnGlobal,
-.btnLaunch,
 .formMenu select{
   padding:10px 40px;
   font-family: 'Quattrocento', serif;
@@ -7,7 +6,6 @@
 }
 
 .btnLandingPage,
-.btnLaunch,
 .btnStop{
   background-color:white;
 }
@@ -17,23 +15,15 @@
 
 .btnStart,
 .btnStop {
-  margin-top: 100px;
-  margin-right:50px;
-  margin-left:50px;
-}
-
-.btnStart {
+  margin:30px 10px;
   background-color: black;
   border: 2px solid white;
   color:white;
 }
 
+
 .btnGlobal:active {
   background-color: grey;
 }
 
-.btnStop,
-.btnLaunch {
-  border: 2px solid black;
-}
 

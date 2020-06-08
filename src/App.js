@@ -93,20 +93,22 @@ class App extends Component {
 
     this.state = {
       citySelect: '',
+      cityName: '',
       weatherStatis: '',
+      weatherName:'',
       windSpeed: 0,
       windDirection: 0,
       visibility: 0,
       humidity: 0,
       loading: false,
       melody: false,
-      description: true
+      description: true,
     }
 
   }
   componentDidMount() {
     //call this.getWeather once the component is rendered
-    this.getWeather()
+    // this.getWeather()
   }
 
   getWeather = () => {
@@ -114,23 +116,28 @@ class App extends Component {
       loading: true
     }, () => {
       const url = `https://www.metaweather.com/api/location/${this.state.citySelect}`;
+      console.log(url);
       axios({
         method: 'GET',
         url: 'https://proxy.hackeryou.com',
         params: {
           reqUrl: url
         }
+        
       }).then((result) => {
         // get result from Axios call, navigate to the weather for the current day
         const weatherData = result.data.consolidated_weather[0]
         Tone.Transport.stop();
+        console.log(weatherData.wind_direction);
         this.setState({
+          cityName:result.data.title,
           windSpeed: weatherData.wind_speed,
           weatherStatis: weatherData.weather_state_abbr,
+          weatherName: weatherData.weather_state_name,
           windDirection: weatherData.wind_direction,
           visibility: weatherData.visibility,
           humidity: weatherData.humidity,
-          loading: false
+          loading: false,
         });
       })
     })
@@ -142,6 +149,7 @@ class App extends Component {
     this.setState({
       citySelect: metropolis
     }, () => this.getWeather())
+    //If metroplis is '' loading:false? or turn off launch click?
   }
 
 
@@ -153,18 +161,19 @@ class App extends Component {
     const numString = newVis.toString();
     const numNotes = [...numString]
     const newArray = numNotes.map((newNumber) => {
-        if (this.state.weatherStatis === 'lc') {
+      if (this.state.weatherStatis === 'lc' || this.state.weatherStatis === 'hc' ) {
         return scaleOne[newNumber]
-      } if (this.state.weatherStatis === 'lr' || 'c') {
+      } if (this.state.weatherStatis === 'lr') {
         return scaleTwo[newNumber]
       } if (this.state.weatherStatis === 's') {
         return scaleThree[newNumber]
-      } if (this.state.weatherStatis === 'hc' || 't') {
+      } if (this.state.weatherStatis === 'c') {
         return scaleFour[newNumber]
       } if (this.state.weatherStatis === 'hr') {
         return scaleFive[newNumber]
       }
     });
+    // console.log(newArray);
     let note = newArray[index % newArray.length];
     this.synth.triggerAttackRelease(note, '8n', time)
   }
@@ -186,8 +195,8 @@ class App extends Component {
     // Currently all FXs are offline untill next update
     this.synth.toMaster();
 
-    //wind speed is setting the BPM (*8 to make sure its not too slow)
-    Tone.Transport.bpm.value = (this.state.windSpeed) * 8
+    //wind speed is setting the BPM (* 10 to make sure its not too slow)
+    Tone.Transport.bpm.value = (this.state.windSpeed) * 10
     Tone.Transport.start();
     this.synth.triggerAttackRelease();
     this.scheduleRepeat();
@@ -203,35 +212,54 @@ class App extends Component {
   onClickLandingPage = () => {
     this.setState({
       description: false
+      
     })
   }
 
   render() {
     return (
-      <div>
+      <div className="zeus">
         <LandingPage />
-{/* I know that two h1's arent best practise, but it was the best way to achieve the effect and keep them center */}
+        {this.state.weatherStatis === 'hr' || this.state.weatherStatis === 's' || this.state.weatherStatis === 'lr'
+          ? <div className="cloudBG">
+            {/* <img src={require('./assets/rain.png')} alt=""/> */}
+            <div className="rain"></div>
+          </div>
+          : <div className="clearBG"></div>
+        }
+        {this.state.weatherStatis === 'lc' || this.state.weatherStatis === 'hc'
+          ? <div className="cloudBG"></div>
+          : <div className="clearBG"></div>
+        }
         <header>
           <div className="headerTitle">
-            <h1>WEATHER</h1>
-            <h1>SYNTH</h1>
+            <h1>WEATHER SYNTH</h1>
           </div>
-          <Form handleChange={this.handleChange} melodyChange={this.state.melody} />
         </header>
-        <section>
-          {/* Checking it loading is T/F to display loading on axios call */}
-          {/* I couldn't figure out the logic to make the spinner not appear when the page first loaded. I know I'm getting a 400 error because my axios call doesnt have a proper end point. I tried to make a condistional setState, but I ended up breaking everything. */}
-          {this.state.loading
-            ? <i className="fas fa-spinner fa-pulse"></i>
-            : <div className="startStop">
-                <button className="btnGlobal btnStart" onClick={this.state.melody ? null : this.startTone} id="startSong">Start</button>
-                <button className="btnGlobal btnStop" onClick={this.stopTone} id="stopSong">Stop</button>
+        <img src={require ('./assets/skyline.png')} alt=""/>
+        <section className="controlPanel">
+        {/* Checking it loading is T/F to display loading on axios call */}
+        {/* I couldn't figure out the logic to make the spinner not appear when the page first loaded. I know I'm getting a 400 error because my axios call doesnt have a proper end point. I tried to make a condistional setState, but I ended up breaking everything. */}
+        {this.state.loading
+          ? <i className="fas fa-spinner fa-pulse"></i>
+          : <div>
+              <div>
+                <Form handleChange={this.handleChange} melodyChange={this.state.melody} />
+                  <div className="startStop">
+                    <button className="btnGlobal btnStart" onClick={this.state.melody ? null : this.startTone} id="startSong">Start</button>
+                    <button className="btnGlobal btnStop" onClick={this.stopTone} id="stopSong">Stop</button>
+                  </div>
               </div>
-          }
+              <div>
+                <p>City : {this.state.cityName}</p>
+                <p>Wind Speed : {Math.round((this.state.windSpeed * 1.60934) * 100) / 100} km/h</p>
+                <p>Weather Condition : {this.state.weatherName}</p>
+              </div>
+          </div>}
         </section>
         <footer>
-          <p><span>Built by Patr</span>ick Sherrard</p>
-          <p><span>Made with Tone.js</span> and MetaWeather</p>
+          <p>Built by Patrick Sherrard</p>
+          <p>Made with Tone.js and MetaWeather</p>
         </footer>
       </div>
     );
