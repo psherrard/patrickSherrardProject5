@@ -128,8 +128,9 @@ class App extends Component {
         // get result from Axios call, navigate to the weather for the current day
         const weatherData = result.data.consolidated_weather[0]
         Tone.Transport.stop();
-        console.log(result.data.title);
+        console.log(weatherData.wind_direction);
         this.setState({
+          cityName:result.data.title,
           windSpeed: weatherData.wind_speed,
           weatherStatis: weatherData.weather_state_abbr,
           weatherName: weatherData.weather_state_name,
@@ -160,19 +161,19 @@ class App extends Component {
     const numString = newVis.toString();
     const numNotes = [...numString]
     const newArray = numNotes.map((newNumber) => {
-        if (this.state.weatherStatis === 'lc') {
+      if (this.state.weatherStatis === 'lc' || this.state.weatherStatis === 'hc' ) {
         return scaleOne[newNumber]
       } if (this.state.weatherStatis === 'lr') {
         return scaleTwo[newNumber]
       } if (this.state.weatherStatis === 's') {
         return scaleThree[newNumber]
-      } if (this.state.weatherStatis === 'hc') {
+      } if (this.state.weatherStatis === 'c') {
         return scaleFour[newNumber]
       } if (this.state.weatherStatis === 'hr') {
         return scaleFive[newNumber]
       }
     });
-    console.log(newArray);
+    // console.log(newArray);
     let note = newArray[index % newArray.length];
     this.synth.triggerAttackRelease(note, '8n', time)
   }
@@ -211,13 +212,14 @@ class App extends Component {
   onClickLandingPage = () => {
     this.setState({
       description: false
+      
     })
   }
 
   render() {
     return (
       <div className="zeus">
-        {this.state.timeAm  }
+        <LandingPage />
         {this.state.weatherStatis === 'hr' || this.state.weatherStatis === 's' || this.state.weatherStatis === 'lr'
           ? <div className="cloudBG">
             {/* <img src={require('./assets/rain.png')} alt=""/> */}
@@ -229,38 +231,36 @@ class App extends Component {
           ? <div className="cloudBG"></div>
           : <div className="clearBG"></div>
         }
-        {/* <LandingPage /> */}
         <header>
           <div className="headerTitle">
             <h1>WEATHER SYNTH</h1>
           </div>
         </header>
         <img src={require ('./assets/skyline.png')} alt=""/>
+        <section className="controlPanel">
+        {/* Checking it loading is T/F to display loading on axios call */}
+        {/* I couldn't figure out the logic to make the spinner not appear when the page first loaded. I know I'm getting a 400 error because my axios call doesnt have a proper end point. I tried to make a condistional setState, but I ended up breaking everything. */}
         {this.state.loading
           ? <i className="fas fa-spinner fa-pulse"></i>
           : <div>
-        <section className="controlPanel">
-          <div>
-            <Form handleChange={this.handleChange} melodyChange={this.state.melody} />
-            {/* Checking it loading is T/F to display loading on axios call */}
-            {/* I couldn't figure out the logic to make the spinner not appear when the page first loaded. I know I'm getting a 400 error because my axios call doesnt have a proper end point. I tried to make a condistional setState, but I ended up breaking everything. */}
-              <div className="startStop">
-                <button className="btnGlobal btnStart" onClick={this.state.melody ? null : this.startTone} id="startSong">Start</button>
-                <button className="btnGlobal btnStop" onClick={this.stopTone} id="stopSong">Stop</button>
+              <div>
+                <Form handleChange={this.handleChange} melodyChange={this.state.melody} />
+                  <div className="startStop">
+                    <button className="btnGlobal btnStart" onClick={this.state.melody ? null : this.startTone} id="startSong">Start</button>
+                    <button className="btnGlobal btnStop" onClick={this.stopTone} id="stopSong">Stop</button>
+                  </div>
               </div>
-          </div>
-          <div>
-            <p>City : </p>
-            <p>Wind Speed : {Math.round((this.state.windSpeed * 1.60934) * 100) / 100} km/h</p>
-            <p>Weather Condition : {this.state.weatherName}</p>
-          </div>
-        </section>
+              <div>
+                <p>City : {this.state.cityName}</p>
+                <p>Wind Speed : {Math.round((this.state.windSpeed * 1.60934) * 100) / 100} km/h</p>
+                <p>Weather Condition : {this.state.weatherName}</p>
+              </div>
           </div>}
+        </section>
         <footer>
           <p>Built by Patrick Sherrard</p>
           <p>Made with Tone.js and MetaWeather</p>
         </footer>
-        
       </div>
     );
   }

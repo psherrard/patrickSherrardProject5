@@ -1,6 +1,6 @@
 .cloudBG{
   width: 100%;
-  top:100px;
+  top:60px;
   position: absolute;
   // margin-top:120px;
   background-size: cover;
@@ -12,8 +12,6 @@
       0%{background-position: 0 0;}
       100%{background-position: 100vw 0;}
     }
-
-    
 }
 
 .rain {
@@ -22,21 +20,19 @@
   z-index: -1;
   background-image: url(../assets/rain.png);
   width:100%;
-  height:150%;
-  // position: absolute;
+  height:170%;
   animation: rain 0.4s linear infinite;
     @keyframes rain {
       0%{
         background-position: 0% 100%;
       }
       100%{
-        background-position: 50% 0%;
+        background-position: 300px 0%;
       }
     }
 }
 
 .headerTitle {
-  // position: fixed;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -49,11 +45,20 @@
     }
 }
 
+img {
+  margin-top: 160px;
+}
 
 .controlPanel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height:100%;
+  background-color: black;
+  color: white;
+  padding:40px 0;
+  // box-shadow: 0 10px #8f8f88;
+
+  p {
+    margin-bottom: 10px;
+  }
 }
 
 
@@ -62,33 +67,6 @@
 
 
 
-
-
-
-
-// .startStop {
-//   margin-top: 70px;
-// }
-// footer {
-//   position: fixed; 
-//   bottom: 0;
-//   left:30.45%;
-//   right:30%;
-//   width:40%;
-//   padding-bottom: 20px;
-//   font-size:10px;
-//   text-align: center;
-//   letter-spacing: 1px;
-// }   
-
-// footer p:first-child {
-//   padding-right: 2.8px;
-// }
-
-// footer p span,
-// .headerTitle h1:first-child {
-//   color:white;
-// }
 
 .fa-spinner {
   color: rgba(173, 232, 240, 0.89);
@@ -97,10 +75,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom:180px;
 }
 
 footer {
-  margin-top: 60px;
+  background-color: white;
+  color:black;
+  font-size: 0.7rem;
+  margin: 10px 0;
+  //Could maybe to for control panel
+ 
+  width:100%;
+  // padding-bottom: 10px;
+
+ 
 }
 
 
