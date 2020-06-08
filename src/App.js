@@ -95,7 +95,7 @@ class App extends Component {
       citySelect: '',
       cityName: '',
       weatherStatis: '',
-      weatherName:'',
+      weatherName: '',
       windSpeed: 0,
       windDirection: 0,
       visibility: 0,
@@ -123,14 +123,14 @@ class App extends Component {
         params: {
           reqUrl: url
         }
-        
+
       }).then((result) => {
         // get result from Axios call, navigate to the weather for the current day
         const weatherData = result.data.consolidated_weather[0]
         Tone.Transport.stop();
         console.log(weatherData.wind_direction);
         this.setState({
-          cityName:result.data.title,
+          cityName: result.data.title,
           windSpeed: weatherData.wind_speed,
           weatherStatis: weatherData.weather_state_abbr,
           weatherName: weatherData.weather_state_name,
@@ -139,6 +139,9 @@ class App extends Component {
           humidity: weatherData.humidity,
           loading: false,
         });
+      }).catch(() => {
+        alert( "Please Pick A City")
+        window.location.reload();
       })
     })
   }
@@ -161,7 +164,7 @@ class App extends Component {
     const numString = newVis.toString();
     const numNotes = [...numString]
     const newArray = numNotes.map((newNumber) => {
-      if (this.state.weatherStatis === 'lc' || this.state.weatherStatis === 'hc' ) {
+      if (this.state.weatherStatis === 'lc' || this.state.weatherStatis === 'hc') {
         return scaleOne[newNumber]
       } if (this.state.weatherStatis === 'lr') {
         return scaleTwo[newNumber]
@@ -212,7 +215,7 @@ class App extends Component {
   onClickLandingPage = () => {
     this.setState({
       description: false
-      
+
     })
   }
 
@@ -236,26 +239,26 @@ class App extends Component {
             <h1>WEATHER SYNTH</h1>
           </div>
         </header>
-        <img src={require ('./assets/skyline.png')} alt=""/>
+        <img src={require('./assets/skyline.png')} alt="" />
         <section className="controlPanel">
-        {/* Checking it loading is T/F to display loading on axios call */}
-        {/* I couldn't figure out the logic to make the spinner not appear when the page first loaded. I know I'm getting a 400 error because my axios call doesnt have a proper end point. I tried to make a condistional setState, but I ended up breaking everything. */}
-        {this.state.loading
-          ? <i className="fas fa-spinner fa-pulse"></i>
-          : <div>
+          {/* Checking it loading is T/F to display loading on axios call */}
+          {/* I couldn't figure out the logic to make the spinner not appear when the page first loaded. I know I'm getting a 400 error because my axios call doesnt have a proper end point. I tried to make a condistional setState, but I ended up breaking everything. */}
+          {this.state.loading
+            ? <i className="fas fa-spinner fa-pulse"></i>
+            : <div>
               <div>
                 <Form handleChange={this.handleChange} melodyChange={this.state.melody} />
-                  <div className="startStop">
-                    <button className="btnGlobal btnStart" onClick={this.state.melody ? null : this.startTone} id="startSong">Start</button>
-                    <button className="btnGlobal btnStop" onClick={this.stopTone} id="stopSong">Stop</button>
-                  </div>
+                <div className="startStop">
+                  <button className="btnGlobal btnStart" onClick={this.state.melody ? null : this.startTone} id="startSong">Start</button>
+                  <button className="btnGlobal btnStop" onClick={this.stopTone} id="stopSong">Stop</button>
+                </div>
               </div>
               <div>
                 <p>City : {this.state.cityName}</p>
                 <p>Wind Speed : {Math.round((this.state.windSpeed * 1.60934) * 100) / 100} km/h</p>
                 <p>Weather Condition : {this.state.weatherName}</p>
               </div>
-          </div>}
+            </div>}
         </section>
         <footer>
           <p>Built by Patrick Sherrard</p>

@@ -1,18 +1,13 @@
-// .formMenu {
-//   position: fixed; 
-//   top: 200px;
-//   left: 29.6%;
-//   right: 29.6%;
-//   width: 40%;
-//   padding-bottom: 20px;
-//   font-size:0.8rem;
-//   text-align: center;
-// }
+  .formMenu {
+  margin:0 20px;
 
-.formMenu select {
-  border:none;
-//   margin-right:20px;
-  font-family: 'Quattrocento', serif;
-  cursor: pointer;
-  width:280px;
+  select {
+    border:none;
+    font-family: 'Quattrocento', serif;
+    cursor: pointer;
+    text-align: center;
+    padding:11px 0;
+    width:200px;
+  }
 }
+

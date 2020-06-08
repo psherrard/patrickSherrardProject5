@@ -6,6 +6,12 @@ class Form extends Component {
             userChoice: ''
         }
     }
+
+    // componentDidMount() {
+    //    document.addEventListener('touchstart')
+
+    // }
+
     //Saving value from users choice of city and setting the state
     getFormInfo = (event) => {
         this.setState({
@@ -21,7 +27,7 @@ class Form extends Component {
         return (
             <nav>
                 <form className="formMenu" action=''>
-                    <select onChange={this.getFormInfo} onClick={this.props.melodyChange ? this.nullButton : (e) => this.props.handleChange(e, this.state.userChoice)} value={this.state.userChoice} name='whichCity' id='whichCity'>
+                    <select onChange={this.getFormInfo} value={this.state.userChoice} name='whichCity' id='whichCity'>
 {/* disabled selected is giving me a warning, but it's achieving what I need. */}
                         <option value='' disabled selected>Choose A City</option>
                         <option value='4118' >Toronto</option>
@@ -31,7 +37,7 @@ class Form extends Component {
                         <option value='15015372'>Kyoto</option>
                         <option value='2351310'>Wellington</option>
                     </select>
-                    {/* <button className="btnLaunch btnGlobal" onClick={this.props.melodyChange ? this.nullButton : (e) => this.props.handleChange(e, this.state.userChoice)} type="submit">Launch</button> */}
+                    <button className="btnLaunch btnGlobal" onClick={this.props.melodyChange ? this.nullButton : (e) => this.props.handleChange(e, this.state.userChoice)} type="submit">Launch</button>
                 </form>
             </nav>
         )

@@ -1,6 +1,6 @@
-@media screen and ( min-height: 900px ){
+@media screen and ( min-height: 800px ){
   .controlPanel {
-    height:490px;
+    height:500px;
   }
 }
 
@@ -38,14 +38,31 @@
     letter-spacing: 9px;
   }
   .landingPage{
-    margin-top: 130px;
+    margin-top: 100px;
 
     h2 {
       letter-spacing: 3px;
     }
 
   }
-  
+}
+
+@media (max-width:425px){
+  .btnLaunch {
+    margin-left:0px;
+    margin-top: 30px;
+  }
+
+  .formMenu {
+    display:flex;
+    flex-direction:column;
+    margin:0 67px;
+
+
+    select {
+      width:100%;
+    }
+  }
 }
 
 @media (max-width:392px) {
@@ -56,7 +73,8 @@
   }
 
   .landingPage {
-    p {
+    p,
+    li {
       font-size: 0.7rem;
     }
   }

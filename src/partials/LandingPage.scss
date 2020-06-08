@@ -1,5 +1,5 @@
 .landingPage{
-  background-color: rgba(0, 0, 0, 0.774);
+  background-color: rgba(0, 0, 0, 0.89);
   border:3px solid #8f8f8f;
   border-radius: 15px;
   color:white;
@@ -10,22 +10,32 @@
   padding:40px 40px;
   z-index: 1;
   opacity: 1;
-}
 
-.landingPage h2 {
-  font-family: 'Cinzel', serif;
-  font-size: 1.3rem;
-  letter-spacing: 20px;
-}
 
-.landingPage p {
-  font-family: 'Quattrocento', serif;
-  letter-spacing: 0.8px;
-  line-height: 25px;
-  font-size: 0.9rem;
-}
+  h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    letter-spacing: 20px;
+  }
 
-.landingPage p,
-.landingPage h2{
-  margin-bottom: 30px;
+  p {
+    font-family: 'Quattrocento', serif;
+    letter-spacing: 0.8px;
+    line-height: 25px;
+    font-size: 0.9rem;
+  }
+
+  p,
+  h2{
+    margin-bottom: 30px;
+  }
+
+  ul {
+    margin-bottom:30px;
+
+    li {
+      margin-bottom: 10px;
+    }
+  }
+
 }
