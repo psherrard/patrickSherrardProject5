@@ -248,10 +248,20 @@ class App extends Component {
             : <div>
               <div>
                 <Form handleChange={this.handleChange} melodyChange={this.state.melody} />
-                <div className="startStop">
-                  <button className="btnGlobal btnStart" onClick={this.state.melody ? null : this.startTone} id="startSong">Start</button>
-                  <button className="btnGlobal btnStop" onClick={this.stopTone} id="stopSong">Stop</button>
-                </div>
+                
+                  {this.state.citySelect.length === 0 
+                  ? <div className="startStop">
+                      <button className="btnGlobal btnStart">Start</button>
+                      <button className="btnGlobal btnStop">Stop</button>
+                    </div>
+                  : <div className="startStop">
+                      <button className="btnGlobal btnStart" onClick={this.state.melody ? null : this.startTone} id="startSong">Start</button>
+                      <button className="btnGlobal btnStop" onClick={this.stopTone} id="stopSong">Stop</button>
+                   </div>
+                  }
+                  {/* <button className="btnGlobal btnStart" onClick={this.state.melody ? null : this.startTone} id="startSong">Start</button>
+                  <button className="btnGlobal btnStop" onClick={this.stopTone} id="stopSong">Stop</button> */}
+          
               </div>
               <div>
                 <p>City : {this.state.cityName}</p>
