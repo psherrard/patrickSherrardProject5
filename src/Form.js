@@ -37,7 +37,7 @@ class Form extends Component {
                         <option value='15015372'>Kyoto</option>
                         <option value='2351310'>Wellington</option>
                     </select>
-                    <button className="btnLaunch btnGlobal" onClick={this.props.melodyChange ? this.nullButton : (e) => this.props.handleChange(e, this.state.userChoice)} type="submit">Launch</button>
+                    <button className="btnLaunch btnGlobal" onClick={this.props.melodyChange ? this.nullButton : (e) => this.props.handleChange(e, this.state.userChoice)} type="submit">Load City</button>
                 </form>
             </nav>
         )
