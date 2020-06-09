@@ -106,10 +106,6 @@ class App extends Component {
     }
 
   }
-  componentDidMount() {
-    //call this.getWeather once the component is rendered
-    // this.getWeather()
-  }
 
   getWeather = () => {
     this.setState({
@@ -152,7 +148,6 @@ class App extends Component {
     this.setState({
       citySelect: metropolis
     }, () => this.getWeather())
-    //If metroplis is '' loading:false? or turn off launch click?
   }
 
 
@@ -176,7 +171,6 @@ class App extends Component {
         return scaleFive[newNumber]
       }
     });
-    // console.log(newArray);
     let note = newArray[index % newArray.length];
     this.synth.triggerAttackRelease(note, '8n', time)
   }
@@ -195,7 +189,7 @@ class App extends Component {
     this.setState({
       melody: true
     })
-    // Currently all FXs are offline untill next update
+    // Currently all FXs are offline
     this.synth.toMaster();
 
     //wind speed is setting the BPM (* 10 to make sure its not too slow)
@@ -223,9 +217,9 @@ class App extends Component {
     return (
       <div className="zeus">
         <LandingPage />
+        {/* clearBG animation currently being worked on */}
         {this.state.weatherStatis === 'hr' || this.state.weatherStatis === 's' || this.state.weatherStatis === 'lr'
           ? <div className="cloudBG">
-            {/* <img src={require('./assets/rain.png')} alt=""/> */}
             <div className="rain"></div>
           </div>
           : <div className="clearBG"></div>
@@ -259,9 +253,6 @@ class App extends Component {
                       <button className="btnGlobal btnStop" onClick={this.stopTone} id="stopSong">Stop</button>
                    </div>
                   }
-                  {/* <button className="btnGlobal btnStart" onClick={this.state.melody ? null : this.startTone} id="startSong">Start</button>
-                  <button className="btnGlobal btnStop" onClick={this.stopTone} id="stopSong">Stop</button> */}
-          
               </div>
               <div>
                 <p>City : {this.state.cityName}</p>
