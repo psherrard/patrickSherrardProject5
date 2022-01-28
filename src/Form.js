@@ -31,7 +31,6 @@ class Form extends Component {
 {/* disabled selected is giving me a warning, but it's achieving what I need. */}
                         <option value='' disabled selected>Choose A City</option>
                         <option value='4118' >Toronto</option>
-                        <option value='565346' >Helsinki</option>
                         <option value='1532755'>Casablanca</option>
                         <option value='2458833'>New Orleans</option>
                         <option value='15015372'>Kyoto</option>
